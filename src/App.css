@@ -1,33 +1,19 @@
 .app-wrapper {
-  margin: 0 auto;
-  display: grid;
-  width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    width: 1200px;
 
+    grid-template-areas: "h h" "n c";
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
+    grid-gap: 10px;
 
-  grid-template-areas:
-  "h h"
-  "n c";
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
-  grid-gap: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
 }
 
-.header {
-  grid-area: h;
-  background-color: cadetblue;
-
-}
-
-header img {
-  width: 50px;
-}
-
-.nav {
-  grid-area: n;
-  background-color: cadetblue;
-}
-
-.content {
-  grid-area: c;
-  background-color: cadetblue;
+.app-wrapper-content {
+    grid-area: c;
+    background-color: darkgray;
 }
