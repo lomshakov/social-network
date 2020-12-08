@@ -1,8 +1,29 @@
 .header {
     grid-area: h;
     background-color: darkgray;
+
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+
+    justify-content: space-around;
+    align-content: space-evenly;
+    text-align: center;
+}
+
+
+.header h1 h2 h3 h4 h5 h6 {
 }
 
 .header img {
+    margin: 0 auto;
     width: 50px;
+
+}
+
+.logo {
+    align-self: center;
+}
+
+.header .mainTitle {
+    color: white;
 }

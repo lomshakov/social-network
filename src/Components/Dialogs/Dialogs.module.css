@@ -1,6 +1,9 @@
 .dialogs {
     display: grid;
     grid-template-columns: 3fr 9fr;
+    grid-gap: 10px;
+    padding: 10px;
+    background-color: darkgray;
 }
 
 a {
@@ -8,22 +11,40 @@ a {
     text-decoration: none;
 }
 
+.dialog {
+    padding: 10px;
+    display: grid;
+    grid-gap: 10px;
+}
+
 .dialogsItems {
     padding: 10px;
+    display: grid;
+    grid-template-rows: auto;
+    border-left: thick double darkslategrey;
+
+    text-align: left;
 }
 
 .dialogsItems .active {
     color: darkslategrey;
 }
 
-.dialog {
-
-}
-
 .messages {
+    display: grid;
+    grid-template-columns: 12fr;
+    grid-gap: 10px;
     padding: 10px;
 }
 
 .message {
+    font-family: Calibri;
+    color: white;
+    padding: 10px;
+    display: grid;
+    grid-template-rows: auto;
+    border: 1px solid darkslategrey;
+    border-radius: 10px;
 
+    text-align: left;
 }

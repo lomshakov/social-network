@@ -12,3 +12,7 @@
 .item a.activeLink {
     color: darkslategrey;
 }
+
+.nav h4 {
+    color: darkslategrey;
+}

@@ -1,3 +1,26 @@
 .profile {
+    display: grid;
+    grid-template-rows: auto;
+    grid-gap: 20px;
+
+
+}
+
+.profileInfo {
+    color: white;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+
+    background-color: darkgray;
     padding: 10px;
+}
+
+.profileInfo img {
+    width: 200px;
+}
+
+.profileDescription {
+    display: grid;
+    grid-template-columns: 4fr 4fr 4fr;
+    grid-template-rows: 4fr 4fr 4fr;
 }

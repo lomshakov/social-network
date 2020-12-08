@@ -1,7 +1,14 @@
 .Post {
-
+    margin-left: 15px;
 }
 
 .item {
-    color: azure;
+    color: white;
+
+}
+
+.like {
+    color: aquamarine;
+    margin-left: 15px;
+    padding-bottom: 10px;
 }

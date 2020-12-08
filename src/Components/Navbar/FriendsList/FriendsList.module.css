@@ -1,0 +1,12 @@
+.friendList {
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+}
+
+.friendList img {
+    height: 30px;
+}
+
+.name {
+    color: white;
+}
