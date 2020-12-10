@@ -1,18 +1,27 @@
 .nav {
     grid-area: n;
-    background-color: darkgray;
     padding: 20px;
+    box-shadow: 0 10px 10px darkgray;
 }
 
 .item a {
-    color: aliceblue;
-    text-decoration: none;
+    color: #6e6e6e;
 }
 
 .item a.activeLink {
     color: darkslategrey;
+    font-weight: 600;
 }
 
 .nav h4 {
     color: darkslategrey;
+}
+
+.item a:hover {
+
+}
+
+
+.item a:visited {
+
 }

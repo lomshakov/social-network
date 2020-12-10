@@ -3,7 +3,6 @@
     grid-template-rows: 3fr 1fr;
     grid-gap: 10px;
     padding: 10px;
-    background-color: darkgray;
 }
 
 .dialogsRow {
@@ -29,7 +28,6 @@
 }
 
 a {
-    color: aliceblue;
     text-decoration: none;
 }
 
@@ -42,15 +40,23 @@ a {
 
 .dialogsItems {
     padding: 10px;
-
-
-    border-left: thick double darkslategrey;
-
     text-align: left;
+    box-shadow: 5px -5px 5px 0px #EDEEEF;
+    border-radius: 10px;
+}
+
+.dialogsItems:hover {
+    background-color: #f1f1f1;
+    box-shadow: 1px -1px 1px 0px #EDEEEF;
+}
+
+.dialogsItems a {
+    color: #6e6e6e;
 }
 
 .dialogsItems .active {
     color: darkslategrey;
+    font-size: 18px;
 }
 
 .messages {
@@ -61,15 +67,14 @@ a {
 }
 
 .message {
-    font-family: Calibri, serif;
-    color: white;
     padding: 10px;
     display: grid;
     grid-template-rows: auto;
-    border: 1px solid darkslategrey;
-    border-radius: 10px;
-
+    box-shadow: 5px -5px 5px 0px #EDEEEF;
     text-align: left;
+    color: #6e6e6e;
+    font-size: 14px;
+
 }
 
 .buttonArea {

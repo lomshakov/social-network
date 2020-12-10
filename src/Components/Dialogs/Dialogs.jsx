@@ -3,22 +3,20 @@ import {NavLink} from "react-router-dom";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import * as React from "react";
+import {addMessageActionCreator, updateMessageTextActionCreator} from "../../Redux/dialogs-reducer";
 
 const Dialogs = (props) => {
 
     let dialogsData = props.state.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>);
     let messagesData = props.state.messages.map(message => <Message message={message.message}/>);
 
-    let newMessageElement = React.createRef();
-
     let addMessage = () => {
-        props.dispatch({ type: 'ADD-MESSAGE' });
-        props.dispatch({ type: 'UPDATE-MESSAGE-TEXT', newText: ''});
+        props.dispatch(addMessageActionCreator());
     }
 
-    let onMessageChange = () => {
-        let text = newMessageElement.current.value;
-        props.dispatch({ type: 'UPDATE-MESSAGE-TEXT', newText: text});
+    let onMessageChange = (e) => {
+        let text = e.target.value;
+        props.dispatch(updateMessageTextActionCreator(text));
     }
 
     return (
@@ -35,7 +33,6 @@ const Dialogs = (props) => {
                 <div className={style.textArea}>
                     <textarea className={style.textArea}
                               placeholder='Напишите сообщение...'
-                              ref={newMessageElement}
                               onChange={onMessageChange}
                               value={props.state.inputMessageText} />
                 </div>

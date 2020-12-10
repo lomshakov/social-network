@@ -5,11 +5,9 @@
 }
 
 .profileInfo {
-    color: white;
     display: grid;
     grid-template-columns: 200px 1fr;
 
-    background-color: darkgray;
     padding: 10px;
 }
 

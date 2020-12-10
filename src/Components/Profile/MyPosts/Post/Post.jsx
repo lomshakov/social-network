@@ -13,7 +13,7 @@ const Post = (props) => {
                 </div>
             </div>
                 <div className={style.date}>
-                    {date}
+                    {props.date}
                 </div>
                 <div className={style.like}>
                     Likes: {props.likesCount}
