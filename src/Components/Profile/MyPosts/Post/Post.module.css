@@ -1,14 +1,33 @@
 .Post {
     margin-left: 15px;
+    display: grid;
+    grid-template-areas: "msg msg msg" ". dt lk";
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
 }
 
 .item {
+    grid-area: msg;
     color: white;
+    align-self: center;
+    justify-self: start;
+}
+
+
+
+.like {
+    grid-area: lk;
+    color: seagreen;
+    align-self: center;
+    justify-self: center;
+}
+
+.postDate {
 
 }
 
-.like {
-    color: aquamarine;
-    margin-left: 15px;
-    padding-bottom: 10px;
+.date {
+    grid-area: dt;
+    align-self: center;
+    justify-self: end;
 }

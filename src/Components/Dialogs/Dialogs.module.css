@@ -1,9 +1,31 @@
 .dialogs {
     display: grid;
-    grid-template-columns: 3fr 9fr;
+    grid-template-rows: 3fr 1fr;
     grid-gap: 10px;
     padding: 10px;
     background-color: darkgray;
+}
+
+.dialogsRow {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.submitRow {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.textArea {
+    width: 600px;
+    height: 40px;
+    resize: none;
+    align-self: center;
+    justify-self: center;
 }
 
 a {
@@ -14,13 +36,14 @@ a {
 .dialog {
     padding: 10px;
     display: grid;
+    grid-auto-rows: 40px;
     grid-gap: 10px;
 }
 
 .dialogsItems {
     padding: 10px;
-    display: grid;
-    grid-template-rows: auto;
+
+
     border-left: thick double darkslategrey;
 
     text-align: left;
@@ -38,7 +61,7 @@ a {
 }
 
 .message {
-    font-family: Calibri;
+    font-family: Calibri, serif;
     color: white;
     padding: 10px;
     display: grid;
@@ -48,3 +71,22 @@ a {
 
     text-align: left;
 }
+
+.buttonArea {
+    align-self: center;
+    justify-self: center;
+}
+
+.button {
+    display: inline-block;
+    color: darkslategray;
+    font-weight: 400;
+    text-decoration: none;
+    padding: .5em 2em;
+    outline: none;
+    border: 2px solid darkslategrey;
+    border-radius: 1px;
+    transition: 0.2s;
+}
+button:hover { background: cadetblue; }
+button:active { background: darkslategrey; }

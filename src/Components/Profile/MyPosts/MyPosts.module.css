@@ -3,20 +3,30 @@
     padding: 10px;
     display: grid;
 
-    grid-template-rows: 3fr 9fr;
+    grid-template-rows: 70px 1fr;
 
+}
+
+.inputMessage {
+    align-self: center;
+    justify-self: center;
+}
+
+.buttonSubmit {
+    align-self: center;
+    justify-self: center;
 }
 
 .postInput {
     display: grid;
     grid-template-columns: 9fr 3fr;
+    grid-template-rows: 1fr;
     justify-content: space-around;
     align-content: space-evenly;
-    text-align: center;
 }
 
 .textArea {
-    width: 700px;
+    width: 600px;
     height: 40px;
     resize: none;
 
@@ -26,15 +36,18 @@
     color: white;
 }
 
+
+
 .button {
-    background-color: darkslategrey;
-    border: none;
-    color: white;
-    padding: 10px 10px;
-    text-align: center;
-    text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    color: darkslategray;
+    font-weight: 400;
+    text-decoration: none;
+    padding: .5em 2em;
+    outline: none;
+    border: 2px solid darkslategrey;
+    border-radius: 1px;
+    transition: 0.2s;
 }
-
-
+button:hover { background: cadetblue; }
+button:active { background: darkslategrey; }

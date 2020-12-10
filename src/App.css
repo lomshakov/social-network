@@ -2,11 +2,11 @@
     margin: 0 auto;
     padding-top: 10px;
     display: grid;
-    width: 1200px;
+    width: 1000px;
 
     grid-template-areas: "h h" "n c";
     grid-template-rows: 60px 1fr;
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 1fr 5fr;
     grid-gap: 10px;
 
     line-height: 1.6;

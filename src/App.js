@@ -10,15 +10,18 @@ import {BrowserRouter, Route} from "react-router-dom";
 
 const App = (props) => {
     return (
-        <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar state = {props.state.sidebar}/>
                 <div className='app-wrapper-content'>
                     <Route path='/profile'
-                           render={() => <Profile state={props.state.profilePage}/>}/>
+                           render={() => <Profile
+                           state={props.state.profilePage}
+                           dispatch={props.dispatch}/>} />
                     <Route path='/dialogs'
-                           render={() => <Dialogs state={props.state.messagePage}/>}/>
+                           render={() => <Dialogs
+                           state={props.state.messagePage}
+                           dispatch={props.dispatch}/>}/>
                     <Route path='/news'
                            render={() => <News />}/>
                     <Route path='/music'
@@ -27,7 +30,6 @@ const App = (props) => {
                            render={() => <Settings />}/>
                 </div>
             </div>
-        </BrowserRouter>
     );
 }
 

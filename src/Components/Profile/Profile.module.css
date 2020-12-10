@@ -2,8 +2,6 @@
     display: grid;
     grid-template-rows: auto;
     grid-gap: 20px;
-
-
 }
 
 .profileInfo {
@@ -15,12 +13,32 @@
     padding: 10px;
 }
 
+.avatar {
+    align-self: center;
+    justify-self: center;
+}
+
+.name {
+    align-self: center;
+    justify-self: center;
+}
+
+.friendsCount {
+    align-self: center;
+    justify-self: center;
+}
+
+.photoCount {
+    align-self: center;
+    justify-self: center;
+}
+
 .profileInfo img {
     width: 200px;
 }
 
 .profileDescription {
     display: grid;
-    grid-template-columns: 4fr 4fr 4fr;
-    grid-template-rows: 4fr 4fr 4fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
 }
