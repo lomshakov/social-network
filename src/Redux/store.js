@@ -65,32 +65,7 @@ let store = {
         this._state.sidebar = sidebarReducer(this._state.sidebar, action);
 
         this._callSubscriber(this._state);
-        /*if (action.type === ADD_POST) {
-            let newPost = {
-                id: 5,
-                message: this._state.profilePage.inputPostText,
-                likesCount: 0,
-                date: new Date().toLocaleString()
-            };
-            this._state.profilePage.inputPostText='';
-            this._state.profilePage.posts.push(newPost);
-            this._callSubscriber(this._state);
-        } else if (action.type === UPDATE_POST_TEXT) {
-            this._state.profilePage.inputPostText = action.newText;
-            this._callSubscriber(this._state);
-        } else if (action.type === ADD_MESSAGE) {
-            let newMessage = {
-                id: 5,
-                message: this._state.messagePage.inputMessageText
-            };
-            this._state.messagePage.inputMessageText='';
-            this._state.messagePage.messages.push(newMessage);
-            this._callSubscriber(this._state);
-        } else if (action.type === UPDATE_MESSAGE_TEXT) {
-            this._state.messagePage.inputMessageText = action.newText;
-            this._callSubscriber(this._state);
-        }*/
     }
 };
 
-export default store;
+//export default store;

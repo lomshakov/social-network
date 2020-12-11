@@ -1,6 +1,6 @@
 import style from './Profile.module.css';
-import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 const Profile = (props) => {
 
@@ -10,9 +10,7 @@ const Profile = (props) => {
                 <ProfileInfo />
             </div>
             <div>
-                <MyPosts posts={props.state.posts}
-                         dispatch={props.dispatch}
-                         newPostText={props.state.inputPostText}/>
+                <MyPostsContainer store={props.store}/>
             </div>
         </div>
     )

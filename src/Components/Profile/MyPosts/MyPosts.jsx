@@ -7,31 +7,30 @@ import {addPostActionCreator, updatePostTextActionCreator} from "../../../Redux/
 
 const MyPosts = (props) => {
 
-    let postsData = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount} date={post.date}/>);
+    let postsData = props.state.posts.map(post => <Post message={post.message} likesCount={post.likesCount} date={post.date}/>);
 
-    let addPost = () => {
-        props.dispatch(addPostActionCreator());
+    let onAddPost = () => {
+        props.addPost();
     }
 
     let onPostChange = (e) => {
         let text = e.target.value;
-        props.dispatch(updatePostTextActionCreator(text));
+        props.updateNewPostText(text);
     }
 
     return (
         <div className={style.MyPosts}>
-
             <div className={style.postInput}>
                 <div className={style.inputMessage}>
                     <textarea className={style.textArea}
                               placeholder='Напишите что-нибудь...'
                               onChange={onPostChange}
-                              value={props.newPostText}
+                              value={props.state.inputPostText}
                     />
                 </div>
                 <div className={style.buttonSubmit}>
                     <button className={style.button}
-                            onClick={addPost}>add post
+                            onClick={onAddPost}>add post
                     </button>
                 </div>
             </div>
