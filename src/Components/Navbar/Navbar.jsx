@@ -23,9 +23,9 @@ const Navbar = (props) => {
             </div>
             <div >
                 <h4>My Friends</h4>
-                <div>
+{/*                <div>
                     <FriendsList friends={props.store.getState().sidebar.friends} />
-                </div>
+                </div>*/}
             </div>
         </nav>
     )

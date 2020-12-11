@@ -4,22 +4,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
 
 
-let renderAll = () => {
-    ReactDOM.render(
-        <React.StrictMode>
+ReactDOM.render(
+    <React.StrictMode>
+        <Provider store={store}>
             <BrowserRouter>
-                <App store={store} />
+                <App />
             </BrowserRouter>
-        </React.StrictMode>,
-        document.getElementById('root')
-    )
-};
-
-renderAll(store.getState());
-
-store.subscribe( () => {
-    let state = store.getState();
-    renderAll(state);
-} );
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
+);
