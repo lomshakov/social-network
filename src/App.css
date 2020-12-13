@@ -2,17 +2,18 @@
     margin: 0 auto;
     padding-top: 10px;
     display: grid;
-    width: 1000px;
+    width: 900px;
 
-    grid-template-areas: "h h" "n c";
+    grid-template-areas: "h h" "n c" "f f";
     grid-template-rows: 60px 1fr;
     grid-template-columns: 1fr 5fr;
     grid-gap: 10px;
 
     line-height: 1.6;
     font-family: Tahoma, serif;
-    color: black;
-    box-shadow: 0 10px 10px darkgray;
+    overflow: hidden;
+    min-height: 100vh;
+    /*background: #f5f5f5;*/
 }
 
 .app-wrapper a{
@@ -26,5 +27,4 @@
 .app-wrapper-content {
     grid-area: c;
     font-family: Tahoma, serif;
-    color: black;
 }

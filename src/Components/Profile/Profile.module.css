@@ -2,12 +2,13 @@
     display: grid;
     grid-template-rows: auto;
     grid-gap: 20px;
+    color: #6e6e6e;
 }
 
 .profileInfo {
     display: grid;
     grid-template-columns: 200px 1fr;
-
+    background: #f5f5f5;
     padding: 10px;
 }
 

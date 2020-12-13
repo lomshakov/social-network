@@ -7,7 +7,7 @@
     justify-content: space-around;
     align-content: space-evenly;
     text-align: center;
-    box-shadow: 0 5px 5px darkgray;
+    background: #f5f5f5;
 }
 
 .header img {
@@ -19,6 +19,6 @@
     align-self: center;
 }
 
-.header .mainTitle {
+.mainTitle {
 
 }

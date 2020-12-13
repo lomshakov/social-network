@@ -12,13 +12,17 @@ const Post = (props) => {
                     {props.message}
                 </div>
             </div>
+            <div className={style.itemData}>
+                <div>
+
+                </div>
                 <div className={style.date}>
                     {props.date}
                 </div>
                 <div className={style.like}>
                     Likes: {props.likesCount}
                 </div>
-
+            </div>
         </div>
     );
 };

@@ -8,7 +8,8 @@ const Header = (props) => {
                 {/*<img src="./../../Images/logo.png"/>*/}
             </div>
             <div className={style.mainTitle}>
-                <h1>The Social Network</h1>
+
+                {/*<h2>The Social Network</h2>*/}
             </div>
         </header>
     )

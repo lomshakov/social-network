@@ -21,8 +21,11 @@ const Navbar = (props) => {
             <div className={style.item}>
                 <NavLink to='/settings' activeClassName={style.activeLink}>Settings</NavLink>
             </div>
+            <div className={style.item}>
+                <NavLink to='/users' activeClassName={style.activeLink}>Users</NavLink>
+            </div>
             <div >
-                <h4>My Friends</h4>
+                <h3>My Friends</h3>
 {/*                <div>
                     <FriendsList friends={props.store.getState().sidebar.friends} />
                 </div>*/}

@@ -6,7 +6,7 @@ import * as React from "react";
 
 const MyPosts = (props) => {
 
-    let postsData = props.state.posts.map(post => <Post message={post.message} likesCount={post.likesCount} date={post.date}/>);
+    let postsData = props.state.posts.map(post => <Post message={post.message} likesCount={post.likesCount} date={post.date} key={post.id}/>);
 
     let onAddPost = () => {
         props.addPost();
@@ -29,7 +29,7 @@ const MyPosts = (props) => {
                 </div>
                 <div className={style.buttonSubmit}>
                     <button className={style.button}
-                            onClick={onAddPost}>add post
+                            onClick={onAddPost}>Add post
                     </button>
                 </div>
             </div>
