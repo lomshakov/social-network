@@ -1,6 +1,7 @@
 import style from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import PostsOnWallContainer from "./MyPosts/Post/PostsOnWallContainer";
+import AddPostWallContainer from "./MyPosts/AddPostWallContainer";
 
 const Profile = (props) => {
 
@@ -10,7 +11,10 @@ const Profile = (props) => {
                 <ProfileInfo />
             </div>
             <div>
-                <MyPostsContainer state={props.state}/>
+                <AddPostWallContainer state={props.state}/>
+            </div>
+            <div>
+                <PostsOnWallContainer state={props.state}/>
             </div>
         </div>
     )

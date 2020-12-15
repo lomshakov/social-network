@@ -3,11 +3,15 @@
     grid-template-rows: 1fr 1fr;
 
     /*box-shadow: 5px -5px 5px 0px #EDEEEF;*/
-    border-radius: 3px;
-    background: #f5f5f5;
+    border-radius: 10px;
+    /*background-color: #f5f5f5;*/
+    margin-bottom: 15px;
 }
 
 .item {
+    width: 100%;
+    background-color: #f5f5f5;
+
     color: #6e6e6e;
     align-self: center;
     justify-self: start;
@@ -17,7 +21,7 @@
 .itemData {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    background: #eee;
+    background: #6b6e6e;
 
 }
 
@@ -36,6 +40,6 @@
 .date {
     align-self: center;
     justify-self: end;
-    color: #6e6e6e;
+    color: #fff;
     font-size: 10px;
 }

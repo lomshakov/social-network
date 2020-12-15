@@ -1,7 +1,7 @@
 import * as React from "react";
-import {addPostActionCreator, updatePostTextActionCreator} from "../../../Redux/profile-reducer";
-import MyPosts from "./MyPosts";
+import PostsOnWall from "./PostsOnWall";
 import {connect} from "react-redux";
+import {addPostActionCreator, updatePostTextActionCreator} from "../../../../Redux/profile-reducer";
 
 
 let mapStateToProps = (state) => {
@@ -18,6 +18,6 @@ let mapDispatchToProps = (dispatch) => {
 };
 
 
-let MyPostContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+let PostsOnWallContainer = connect(mapStateToProps, mapDispatchToProps)(PostsOnWall);
 
-export default MyPostContainer;
+export default PostsOnWallContainer;
