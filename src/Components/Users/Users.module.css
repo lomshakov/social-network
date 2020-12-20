@@ -58,6 +58,13 @@
     transition: color 0.2s linear;
 }
 
+.buttonUnfollow {
+    background-color: #cbcfd4;
+}
+
+.buttonFollow {
+
+}
 
 
 
