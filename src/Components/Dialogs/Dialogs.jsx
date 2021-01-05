@@ -2,20 +2,19 @@ import style from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import * as React from "react";
+import {Redirect} from "react-router-dom"
+import {Form, Field} from 'react-final-form'
 
 const Dialogs = (props) => {
 
     let dialogsData = props.state.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id} key={dialog.id}/>);
     let messagesData = props.state.messages.map(message => <Message message={message.message} key={message.id}/>);
 
-    let onAddMessage = () => {
-        props.addMessage();
+    let addMessage = (formData) => {
+        props.addMessage(formData.message);
     }
 
-    let onMessageChange = (e) => {
-        let text = e.target.value;
-        props.updateNewMessageText(text);
-    }
+    if (!props.isAuth) return <Redirect to="/login"/>
 
     return (
         <div className={style.dialogs}>
@@ -27,23 +26,34 @@ const Dialogs = (props) => {
                     {messagesData}
                 </div>
             </div>
-            <div className={style.submitRow}>
-                <div className={style.submitArea}>
-                    <textarea className={style.textArea}
-                              placeholder='Напишите сообщение...'
-                              onChange={onMessageChange}
-                              value={props.state.inputMessageText} />
-                </div>
-                <div className={style.buttonArea}>
-                    <button className={style.button}
-                            onClick={onAddMessage}>add post
-                    </button>
-                </div>
-            </div>
+
+            <MessageForm addMessage={addMessage}/>
 
         </div>
     )
 };
+
+const MessageForm = (props) => {
+
+    return (
+        <Form onSubmit={props.addMessage}
+              render={({handleSubmit, submitting, pristine}) => (
+                  <form onSubmit={handleSubmit} className={style.submitRow}>
+
+                      <Field className={style.textArea}
+                             name="message"
+                             component="input"
+                             type="textarea"
+                             placeholder='Напишите сообщение...'
+                      />
+
+                      <button className={style.button} type="submit" disabled={submitting || pristine}>add post</button>
+
+                  </form>
+              )}
+        />
+    )
+}
 
 export default Dialogs;
 

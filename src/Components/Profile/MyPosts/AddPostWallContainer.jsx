@@ -1,23 +1,18 @@
 import * as React from "react";
-import {addPostActionCreator, updatePostTextActionCreator} from "../../../Redux/profile-reducer";
+import {addPost} from "../../../Redux/profile-reducer";
 import AddPostWall from "./AddPostWall";
 import {connect} from "react-redux";
 
+class AddPostWallContainer extends React.Component {
+    render() {
+        return <AddPostWall {...this.props}/>
+    }
+}
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         state: state.profilePage
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        addPost: () => dispatch(addPostActionCreator()),
-        updateNewPostText: (text) => dispatch(updatePostTextActionCreator(text))
-    }
-};
-
-
-let MyPostContainer = connect(mapStateToProps, mapDispatchToProps)(AddPostWall);
-
-export default MyPostContainer;
+export default connect(mapStateToProps, {addPost})(AddPostWallContainer);

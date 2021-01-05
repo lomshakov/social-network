@@ -1,7 +1,6 @@
 import * as React from "react";
 import PostsOnWall from "./PostsOnWall";
 import {connect} from "react-redux";
-import {addPostActionCreator, updatePostTextActionCreator} from "../../../../Redux/profile-reducer";
 
 
 let mapStateToProps = (state) => {
@@ -10,14 +9,6 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        addPost: () => dispatch(addPostActionCreator()),
-        updateNewPostText: (text) => dispatch(updatePostTextActionCreator(text))
-    }
-};
-
-
-let PostsOnWallContainer = connect(mapStateToProps, mapDispatchToProps)(PostsOnWall);
+let PostsOnWallContainer = connect(mapStateToProps, null)(PostsOnWall);
 
 export default PostsOnWallContainer;

@@ -8,13 +8,15 @@ const Profile = (props) => {
     return (
         <div className={style.profile}>
             <div>
-                <ProfileInfo profile={props.profile}/>
+                <ProfileInfo profile={props.profile}
+                             status={props.status}
+                             updateStatus={props.updateStatus} />
             </div>
             <div>
-                <AddPostWallContainer state={props.state}/>
+                <AddPostWallContainer state={props.state} />
             </div>
             <div>
-                <PostsOnWallContainer state={props.state}/>
+                <PostsOnWallContainer state={props.state} />
             </div>
         </div>
     )

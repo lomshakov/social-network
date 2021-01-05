@@ -22,12 +22,9 @@
 
 }
 
-.submitArea {
+.textArea {
     align-self: center;
     justify-self: center;
-}
-
-.textArea {
     width: 550px;
     height: 40px;
     resize: none;
@@ -87,12 +84,10 @@ a {
     justify-self: start;
 }
 
-.buttonArea {
-    align-self: center;
-    justify-self: center;
-}
 
 .button {
+    align-self: center;
+    justify-self: center;
     display: inline-block;
     border-radius: 3px;
     border: none;

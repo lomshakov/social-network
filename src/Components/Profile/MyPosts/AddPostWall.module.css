@@ -5,9 +5,10 @@
 }
 
 .AddPostArea {
+    display: grid;
     width: 100%;
     height: 100%;
-    display: grid;
+
     grid-template-columns: 3fr 1fr;
     align-self: center;
     justify-self: center;
@@ -25,6 +26,7 @@
 }
 
 .textArea {
+    align-self: center;
     justify-self: center;
 
     width: 500px;
@@ -40,6 +42,8 @@
 
 
 .button {
+    align-self: center;
+    justify-self: center;
     display: inline-block;
     border-radius: 3px;
     border: none;

@@ -1,6 +1,6 @@
-import style from './../Profile.module.css'
-import Preloader from "../../common/Preloader/Preloader";
-import userPhoto from "../../../assets/images/user.png";
+import style from './../Profile.module.css';
+import Preloader from '../../common/Preloader/Preloader';
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = (props) => {
 
@@ -15,7 +15,10 @@ const ProfileInfo = (props) => {
             </div>
             <div className={style.profileDescription}>
                 <h4 className={style.name}>{props.profile.fullName}</h4>
-                <div>{props.profile.aboutMe}</div>
+                <ProfileStatus status={props.status}
+                               updateStatus={props.updateStatus} />
+
+                {/*<div>{props.profile.aboutMe}</div>*/}
                 <div>Работа: {props.profile.lookingForAJob === false ? "нуждаюсь" : "не нуждаюсь"}</div>
                 <div>О работе: {props.profile.lookingForAJobDescription}</div>
                 <div>

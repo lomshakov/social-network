@@ -14,12 +14,24 @@ export const usersAPI = {
             .then(response => response.data)
     },
     follow(userID) {
-        return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`)
+        return instance.post(`follow/${userID}`)
     },
     unfollow(userID) {
-        return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`)
-    },
+        return instance.delete(`follow/${userID}`)
+    }
+}
+
+export const profileAPI = {
     setAuth() {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`)
+        return instance.get(`auth/me`)
+    },
+    getProfileData(userID) {
+        return instance.get(`profile/` + userID)
+    },
+    getStatus(userID) {
+        return instance.get('profile/status/' + userID)
+    },
+    updateStatus(status) {
+        return instance.put('profile/status/', { status: status })
     }
 }
