@@ -1,4 +1,6 @@
 import {Form, Field} from 'react-final-form'
+import {required} from "../../utils/validators/validators";
+import {TextArea} from "../common/FormsControls/FormsControls";
 
 const Login = (props) => {
 
@@ -16,56 +18,22 @@ const Login = (props) => {
 
 const LoginForm = (props) => {
 
-
-    // это валидаторы из Redux Final Form
-    // можно их совместно использовать при помощи функции внизу composeValidators
-    // подробнее - https://final-form.org/docs/react-final-form/examples/field-level-validation
-
-    const required = value => (value ? undefined : 'Required')
-    const mustBeNumber = value => (isNaN(value) ? 'Must be a number' : undefined)
-    const minValue = min => value =>
-        isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`
-    const composeValidators = (...validators) => value =>
-        validators.reduce((error, validator) => error || validator(value), undefined)
-
-
-
-
     return (
         <Form onSubmit={props.onSubmit}
-              render={ ( {handleSubmit, submitting, pristine, values} ) => (
+              render={ ( {handleSubmit, submitting, pristine} ) => (
                   <form onSubmit={handleSubmit}>
                       <div>
                           <Field name="login"
-                                 component="input"
-                                 type="text"
-                                 placeholder="login"
-                                 validate={required}>
-
-                              {({ input, meta }) => (
-                                  <div>
-                                      <input {...input} type="text" placeholder="login" />
-                                      {meta.error && meta.touched && <span>{meta.error}</span>}
-                                  </div>
-                              )}
-
-
-
+                                 component={TextArea}
+                                 validate={required}
+                                 placeHolder={"login"}>
                           </Field>
                       </div>
                       <div>
                           <Field name="password"
-                                 component="input"
-                                 type="text"
-                                 placeholder="password"
-                                 validate={required}>
-
-                              {({ input, meta }) => (
-                                  <div>
-                                      <input {...input} type="text" placeholder="your password" />
-                                      {meta.error && meta.touched && <span>{meta.error}</span>}
-                                  </div>
-                              )}
+                                 component={TextArea}
+                                 validate={required}
+                                 placeHolder={"password"}>
 
                           </Field>
                       </div>

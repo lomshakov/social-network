@@ -3,7 +3,9 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import * as React from "react";
 import {Redirect} from "react-router-dom"
-import {Form, Field} from 'react-final-form'
+import {Field, Form} from 'react-final-form'
+import {TextArea} from "../common/FormsControls/FormsControls";
+import {composeValidators, maxLength, minLength, required} from "../../utils/validators/validators";
 
 const Dialogs = (props) => {
 
@@ -40,12 +42,11 @@ const MessageForm = (props) => {
               render={({handleSubmit, submitting, pristine}) => (
                   <form onSubmit={handleSubmit} className={style.submitRow}>
 
-                      <Field className={style.textArea}
-                             name="message"
-                             component="input"
-                             type="textarea"
-                             placeholder='Напишите сообщение...'
-                      />
+                      <Field name="message"
+                             component={TextArea}
+                             validate={composeValidators(required, minLength(5), maxLength(200))}
+                             placeHolder={"message here..."}>
+                      </Field>
 
                       <button className={style.button} type="submit" disabled={submitting || pristine}>add post</button>
 

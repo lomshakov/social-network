@@ -1,0 +1,16 @@
+/* height и width пока временно для всех форм*/
+
+
+.formControl {
+    align-self: center;
+    justify-self: center;
+    height: 40px;
+    width: 400px;
+
+    border: #2f2c2c 1px solid;
+}
+
+.error {
+    border: darkred 1px solid;
+}
+
