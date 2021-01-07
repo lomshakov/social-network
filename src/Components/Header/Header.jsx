@@ -11,12 +11,12 @@ const Header = (props) => {
                 <h2>The Social Network</h2>
                 
                 <div>
-                    <img src="" alt=""/>
+                    {/*<img src="" alt=""/>*/}
                 </div>
 
                 <div className={style.login}>
                 { !props.isAuth ? <NavLink to='/login'>Login</NavLink>
-                                : <div>{props.login}</div> }
+                                : <div>{props.login}<button onClick={props.logout}>Logout</button></div> }
                 </div>
 
             </div>

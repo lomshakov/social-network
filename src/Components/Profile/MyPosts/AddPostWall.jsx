@@ -30,7 +30,7 @@ const AddPostForm = (props) => {
                       <Field name="message"
                              component={TextArea}
                              validate={composeValidators(required, minLength(5), maxLength(200))}
-                             placeHolder={"post here..."}>
+                             placeholder={"post here..."}>
                       </Field>
 
                     <button className={style.button} type="submit" disabled={submitting || pristine}>Add post</button>

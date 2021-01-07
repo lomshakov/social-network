@@ -45,7 +45,7 @@ const MessageForm = (props) => {
                       <Field name="message"
                              component={TextArea}
                              validate={composeValidators(required, minLength(5), maxLength(200))}
-                             placeHolder={"message here..."}>
+                             placeholder={"message here..."}>
                       </Field>
 
                       <button className={style.button} type="submit" disabled={submitting || pristine}>add post</button>

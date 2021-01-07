@@ -12,5 +12,6 @@
 
 .error {
     border: darkred 1px solid;
+    color: red;
 }
 
