@@ -19,8 +19,8 @@ const ProfileInfo = (props) => {
                                updateStatus={props.updateStatus} />
 
                 {/*<div>{props.profile.aboutMe}</div>*/}
-                <div>Работа: {props.profile.lookingForAJob === false ? "нуждаюсь" : "не нуждаюсь"}</div>
-                <div>О работе: {props.profile.lookingForAJobDescription}</div>
+                <div>Looking for a job: {props.profile.lookingForAJob === false ? "yes" : "no"}</div>
+                <div>Skills: {props.profile.lookingForAJobDescription}</div>
                 <div>
                     Contacts:
                     <div>

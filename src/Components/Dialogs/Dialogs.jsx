@@ -9,14 +9,14 @@ import {composeValidators, maxLength, minLength, required} from "../../utils/val
 
 const Dialogs = (props) => {
 
-    let dialogsData = props.state.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id} key={dialog.id}/>);
-    let messagesData = props.state.messages.map(message => <Message message={message.message} key={message.id}/>);
+    let dialogsData = props.dialogsPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id} key={dialog.id}/>);
+    let messagesData = props.dialogsPage.messages.map(message => <Message message={message.message} key={message.id}/>);
 
     let addMessage = (formData) => {
         props.addMessage(formData.message);
     }
 
-    if (!props.isAuth) return <Redirect to="/login"/>
+    // if (!props.isAuth) return <Redirect to="/login"/>
 
     return (
         <div className={style.dialogs}>

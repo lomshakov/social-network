@@ -1,5 +1,4 @@
 import {authAPI} from "../api/api";
-import {FORM_ERROR} from 'final-form';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_AUTH_ERROR = "SET_AUTH_ERROR";
@@ -35,16 +34,14 @@ const authReducer = (state= initialState, action) => {
 export const setAuthUserData = (userId, email, login, isAuth) => ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}});
 export const setAuthError = (error) => ({type: SET_AUTH_ERROR, payload: error})
 
-export const setAuth = () => {
-    return (dispatch) => {
-        authAPI.setAuth()
+export const setAuth = () => (dispatch) => {
+        return authAPI.getAuthData()
             .then(response => {
                 if (response.data.resultCode === 0) {
                     let {id, email, login} = response.data.data; // здесь должно быть как в API - id а не userId
                     dispatch(setAuthUserData(id, email, login, true));
                 }
             });
-    }
 }
 
 export const login = (email, password, rememberMe) => {

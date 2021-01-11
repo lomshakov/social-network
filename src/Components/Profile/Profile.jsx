@@ -1,23 +1,17 @@
 import style from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import PostsOnWallContainer from "./MyPosts/Post/PostsOnWallContainer";
+import PostsContainer from "./MyPosts/Post/PostsContainer";
 import AddPostWallContainer from "./MyPosts/AddPostWallContainer";
 
 const Profile = (props) => {
 
     return (
         <div className={style.profile}>
-            <div>
-                <ProfileInfo profile={props.profile}
-                             status={props.status}
-                             updateStatus={props.updateStatus} />
-            </div>
-            <div>
-                <AddPostWallContainer state={props.state} />
-            </div>
-            <div>
-                <PostsOnWallContainer state={props.state} />
-            </div>
+            <ProfileInfo profile={props.profile}
+                         status={props.status}
+                         updateStatus={props.updateStatus}/>
+            <AddPostWallContainer/>
+            <PostsContainer/>
         </div>
     )
 }

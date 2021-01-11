@@ -1,39 +1,118 @@
-import './App.css';
-import Navbar from "./Components/Navbar/Navbar";
+import * as React from "react";
+import 'antd/dist/antd.css';
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import News from "./Components/News/News";
-import {Route} from "react-router-dom";
+import {Link, NavLink, Route, Router} from "react-router-dom";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import Login from "./Components/Login/Login";
+import { Layout, Menu } from 'antd';
+import { withRouter } from "react-router-dom";
+import {connect} from "react-redux";
+import {compose} from "redux";
+import {initializeApp} from "./Redux/app-reducer";
+import Preloader from "./Components/common/Preloader/Preloader";
 
-const App = () => {
+const { Header, Content, Sider, Footer } = Layout;
 
-    return (
-            <div className='app-wrapper'>
-                <HeaderContainer />
-                <Navbar />
-                <div className='app-wrapper-content'>
-                    <Route path='/profile/:userId?'
-                           render={() => <ProfileContainer />} />
-                    <Route path='/dialogs'
-                           render={() => <DialogsContainer />} />
-                    <Route path='/news'
-                           render={() => <News />}/>
-                    <Route path='/music'
-                           render={() => <Music />}/>
-                    <Route path='/settings'
-                           render={() => <Settings />}/>
-                    <Route path='/users'
-                           render={() => <UsersContainer />}/>
-                    <Route path='/login'
-                           render={() => <Login />}/>
-                </div>
-            </div>
-    );
+class App extends React.Component {
+
+    componentDidMount() {
+        this.props.initializeApp()
+    }
+
+    render() {
+
+        //если убрать условие, то хоты бы грузится
+        if (!this.props.initialized) {
+            console.log(this.props.initialized)
+
+            return <Preloader />
+        }
+
+        return (
+            <Layout>
+                <Header className="header">
+                    <HeaderContainer/>
+                </Header>
+                <Layout>
+                    <Sider width={200} className="site-layout-background">
+                        <Menu
+                            mode="inline"
+                            defaultSelectedKeys={['1']}
+                            style={{height: '100%', borderRight: 0}}>
+
+                            <Menu.Item key="1">
+                                <Link to='/profile'>Profile</Link>
+                            </Menu.Item>
+
+                            <Menu.Item key="2">
+                                <Link to='/dialogs'>Messages</Link>
+                            </Menu.Item>
+
+                            <Menu.Item key="3">
+                                <Link to='/news'>News</Link>
+                            </Menu.Item>
+
+                            <Menu.Item key="4">
+                                <Link to='/music'>Music</Link>
+                            </Menu.Item>
+
+                            <Menu.Item key="5">
+                                <Link to='/settings'>Settings</Link>
+                            </Menu.Item>
+
+                            <Menu.Item key="6">
+                                <Link to='/users'>Developers</Link>
+                            </Menu.Item>
+                        </Menu>
+                    </Sider>
+                    <Layout style={{padding: '0 24px 24px'}}>
+                        <Content
+                            className="site-layout-background"
+                            style={{
+                                padding: 24,
+                                margin: 0,
+                                minHeight: 280,
+                            }}
+                        >
+
+                            <div>
+                                <Route path='/profile/:userId?'
+                                       render={() => <ProfileContainer />}/>
+                                <Route path='/dialogs'
+                                       render={() => <DialogsContainer />}/>
+                                <Route path='/news'
+                                       render={() => <News />}/>
+                                <Route path='/music'
+                                       render={() => <Music />}/>
+                                <Route path='/settings'
+                                       render={() => <Settings />}/>
+                                <Route path='/users'
+                                       render={() => <UsersContainer />}/>
+                                <Route path='/login'
+                                       render={() => <Login />}/>
+                            </div>
+
+
+                        </Content>
+                    </Layout>
+                </Layout>
+
+                <Footer style={{textAlign: 'center'}}>2021 Created by Alexey Lomshakov</Footer>
+            </Layout>
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    initialized: state.app.initialized
+})
+
+export default compose(
+    connect(mapStateToProps, {initializeApp}),
+    withRouter
+    )(App)

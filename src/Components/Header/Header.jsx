@@ -1,26 +1,35 @@
-import style from './Header.module.css';
-import {NavLink} from "react-router-dom";
+import 'antd/dist/antd.css';
+import {Link} from "react-router-dom";
+import {Avatar, Button, Col, Row, Typography } from "antd";
+import { UserOutlined } from '@ant-design/icons';
+
+const {Text} = Typography;
 
 const Header = (props) => {
     return (
-        <header className={style.header}>
-            <div className={style.logo}>
-                <img src="https://bumper-stickers.ru/30075-thickbox_default/smaylik-s-hitroy-ulybkoy.jpg"/>
-            </div>
-            <div className={style.mainTitle}>
-                <h2>The Social Network</h2>
-                
-                <div>
-                    {/*<img src="" alt=""/>*/}
-                </div>
+            <Row>
+                <Col span={4}>
+                    <div className="logo" />
+                </Col>
 
-                <div className={style.login}>
-                { !props.isAuth ? <NavLink to='/login'>Login</NavLink>
-                                : <div>{props.login}<button onClick={props.logout}>Logout</button></div> }
-                </div>
+                <Col span={16}>
+                    <Text style={{color: 'white', fontSize: 30}}>React developers social network
+                    </Text>
+                </Col>
 
-            </div>
-        </header>
+                <Col span={4}>
+                    { !props.isAuth ? <Button><Link to='/login'>Login</Link></Button>
+                                    : <div>
+                                        <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+
+                                        <Text style={{color: 'white', margin: '0 15px'}}>
+                                            {props.login}
+                                        </Text>
+
+                                        <Button onClick={props.logout}>Logout</Button>
+                                      </div> }
+                </Col>
+            </Row>
     )
 };
 
