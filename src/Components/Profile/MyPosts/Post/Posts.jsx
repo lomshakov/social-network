@@ -3,16 +3,14 @@ import { List, Avatar, Space } from 'antd';
 import { FieldTimeOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 
 
-const Posts = (props) => {
-
+const Posts = React.memo(({ login, posts }) => {
+    
     const IconText = ({ icon, text }) => (
         <Space>
             {React.createElement(icon)}
             {text}
         </Space>
     );
-
-    const login = props.login
 
     return (
         <List
@@ -24,7 +22,7 @@ const Posts = (props) => {
                 },
                 pageSize: 10,
             }}
-            dataSource={props.posts}
+            dataSource={posts}
 
             renderItem={item => (
                 <List.Item
@@ -46,6 +44,6 @@ const Posts = (props) => {
             )}
         />
     )
-};
+});
 
 export default Posts;

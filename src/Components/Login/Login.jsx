@@ -17,6 +17,8 @@ const Login = (props) => {
 
     if (props.isAuth) return <Redirect to={"/profile"}/>
 
+    console.log(props.isAuth)
+
     return (
         <div>
             <Title level={2}>Login</Title>

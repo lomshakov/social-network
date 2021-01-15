@@ -3,10 +3,9 @@ import style from "./FormControls.module.css"
 import {Input} from "antd";
 import FormItem from "antd/lib/form/FormItem";
 
-export const TextArea = ({input, meta}) => {
+export const TextArea = ({ input, meta: {error, submitError, touched} }) => {
 
-    const hasError = (meta.error || meta.submitError) && meta.touched;
-
+    const hasError = (error || submitError) && touched;
 
 
     return (
@@ -14,7 +13,7 @@ export const TextArea = ({input, meta}) => {
 
             <Input  className={style.formControl + " " + (hasError ? style.error : "")} {...input}/>
 
-            {hasError && <span>{meta.error || meta.submitError}</span>}
+            {hasError && <span>{error || submitError}</span>}
 
         </FormItem>
     )

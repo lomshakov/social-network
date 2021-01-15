@@ -1,11 +1,11 @@
 import * as React from "react";
 import {addPost} from "../../../Redux/profile-reducer";
-import AddPostWall from "./AddPostWall";
+import AddPost from "./AddPost";
 import {connect} from "react-redux";
 
-class AddPostWallContainer extends React.Component {
+class AddPostContainer extends React.Component {
     render() {
-        return <AddPostWall {...this.props}/>
+        return <AddPost {...this.props}/>
     }
 }
 
@@ -15,4 +15,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, {addPost})(AddPostWallContainer);
+export default connect(mapStateToProps, {addPost})(AddPostContainer);

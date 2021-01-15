@@ -1,6 +1,6 @@
 import style from './../Profile.module.css';
+import 'antd/dist/antd.css';
 import Preloader from '../../common/Preloader/Preloader';
-import ProfileStatus from './ProfileStatus';
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 const ProfileInfo = (props) => {

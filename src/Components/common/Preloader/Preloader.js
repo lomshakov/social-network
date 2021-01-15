@@ -1,11 +1,16 @@
-import preloader from "../../../assets/images/preloader.svg";
+import React from 'react';
+import 'antd/dist/antd.css';
+import './../../../App.css';
+import { Spin, Space } from 'antd';
 
-let Preloader =() => {
+const Preloader = () => {
     return (
-        <div>
-            <img src={preloader} alt='' />
-        </div>
+        <Space size="large">
+            <Spin size="large" />
+        </Space>
     )
 }
 
 export default Preloader;
+
+

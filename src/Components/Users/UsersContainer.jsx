@@ -3,7 +3,8 @@ import {
     setCurrentPage,
     unfollow,
     toggleIsFollowing,
-    requestUsers
+    requestUsers,
+    setPageSize
 } from "../../Redux/users-reducer";
 import {connect} from "react-redux";
 import Users from "./Users";
@@ -28,10 +29,16 @@ class UsersContainer extends React.Component{
         this.props.requestUsers(this.props.currentPage, this.props.pageSize);
     };
 
-    onPageChanged = (pageNumber) => {
-        this.props.requestUsers(pageNumber, this.props.pageSize);
+    onPageChanged = (pageNumber, pageSize) => {
+        this.props.setPageSize(pageSize)
+        this.props.requestUsers(pageNumber, pageSize);
         this.props.setCurrentPage(pageNumber);
     };
+
+    setPageSize = (current, size) => {
+        this.props.setCurrentPage(current)
+        this.props.setPageSize(size)
+    }
 
     render() {
         return <>
@@ -45,7 +52,8 @@ class UsersContainer extends React.Component{
                users={this.props.users}
                follow={this.props.follow}
                unfollow={this.props.unfollow}
-               followingInProgress={this.props.followingInProgress}/>
+               followingInProgress={this.props.followingInProgress}
+               setPageSize={this.setPageSize}/>
         </>
     }
 }
@@ -69,7 +77,8 @@ export default compose(
         unfollow,
         setCurrentPage,
         toggleIsFollowing,
-        requestUsers
+        requestUsers,
+        setPageSize
     }),
     withAuthRedirect
 )(UsersContainer);

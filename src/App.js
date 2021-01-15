@@ -3,18 +3,19 @@ import 'antd/dist/antd.css';
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import News from "./Components/News/News";
-import {Link, NavLink, Route, Router} from "react-router-dom";
+import {Link, Route} from "react-router-dom";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
-import Login from "./Components/Login/Login";
 import { Layout, Menu } from 'antd';
 import { withRouter } from "react-router-dom";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./Redux/app-reducer";
 import Preloader from "./Components/common/Preloader/Preloader";
+import './App.css'
+import AntLoginForm from "./Components/Login/AntLoginForm";
 
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -26,16 +27,12 @@ class App extends React.Component {
 
     render() {
 
-        //если убрать условие, то хоты бы грузится
-        if (!this.props.initialized) {
-            console.log(this.props.initialized)
-
+        if (!this.props.initialized)
             return <Preloader />
-        }
 
         return (
-            <Layout>
-                <Header className="header">
+            <Layout className="container">
+                <Header>
                     <HeaderContainer/>
                 </Header>
                 <Layout>
@@ -46,7 +43,7 @@ class App extends React.Component {
                             style={{height: '100%', borderRight: 0}}>
 
                             <Menu.Item key="1">
-                                <Link to='/profile'>Profile</Link>
+                                <Link to='/profile'>My profile</Link>
                             </Menu.Item>
 
                             <Menu.Item key="2">
@@ -94,7 +91,9 @@ class App extends React.Component {
                                 <Route path='/users'
                                        render={() => <UsersContainer />}/>
                                 <Route path='/login'
-                                       render={() => <Login />}/>
+                                       render={() => <AntLoginForm />}/>
+                                {/*<Route path='/login'
+                                       render={() => <Login />}/>*/}
                             </div>
 
 
