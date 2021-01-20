@@ -3,19 +3,20 @@ import 'antd/dist/antd.css';
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import News from "./Components/News/News";
-import {Link, Route} from "react-router-dom";
+import {BrowserRouter, Link, Route} from "react-router-dom";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import { Layout, Menu } from 'antd';
 import { withRouter } from "react-router-dom";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./Redux/app-reducer";
 import Preloader from "./Components/common/Preloader/Preloader";
 import './App.css'
 import AntLoginForm from "./Components/Login/AntLoginForm";
+import store from "./Redux/redux-store";
 
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -111,7 +112,19 @@ const mapStateToProps = (state) => ({
     initialized: state.app.initialized
 })
 
-export default compose(
+const AppContainer = compose(
     connect(mapStateToProps, {initializeApp}),
     withRouter
     )(App)
+
+const MainApp = () => {
+    return (
+        <Provider store={store}>
+            <BrowserRouter>
+                <AppContainer />
+            </BrowserRouter>
+        </Provider>
+    )
+}
+
+export default MainApp;

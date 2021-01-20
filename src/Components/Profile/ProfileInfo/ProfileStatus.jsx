@@ -7,10 +7,6 @@ class ProfileStatus extends React.Component {
         status: this.props.status
     }
 
-    // Здесь используем синтаксис стрелочной ф-ии по причине
-    // того, чтобы ниже где мы ее будем передавать в onClick
-    // не потерялся контекст вызова
-
     activateEditMode = () => {
         this.setState( {
             editMode: true
