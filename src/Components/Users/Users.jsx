@@ -2,17 +2,19 @@ import style from "./Users.module.css";
 import 'antd/dist/antd.css';
 import { Pagination } from 'antd';
 import User from "./User";
+import {useState} from "react";
 
 let Users = ({ totalUsersCount, pageSize, onPageChanged, users, followingInProgress, follow, unfollow, setPageSize }) => {
 
-    let pagesCount = Math.ceil(totalUsersCount / pageSize);
+    //let pagesTotal = Math.ceil(totalUsersCount / pageSize);
+
 
     return (
 
         <div className={style.usersPage}>
 
             <Pagination defaultCurrent={1}
-                        total={pagesCount}
+                        total={totalUsersCount}
                         pageSize={pageSize}
                         onChange={onPageChanged}
                         onShowSizeChange={setPageSize}/>

@@ -1,24 +1,24 @@
-import * as React from "react";
+import React, {Suspense, lazy} from "react";
 import 'antd/dist/antd.css';
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import News from "./Components/News/News";
 import {BrowserRouter, Link, Route} from "react-router-dom";
-import DialogsContainer from "./Components/Dialogs/DialogsContainer";
-import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
-import { Layout, Menu } from 'antd';
-import { withRouter } from "react-router-dom";
+import {Layout, Menu} from 'antd';
+import {withRouter, Switch} from "react-router-dom";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./Redux/app-reducer";
 import Preloader from "./Components/common/Preloader/Preloader";
-import './App.css'
+import './App.css';
 import AntLoginForm from "./Components/Login/AntLoginForm";
 import store from "./Redux/redux-store";
+const DialogsContainer = lazy(() => import("./Components/Dialogs/DialogsContainer"));
+const UsersContainer = lazy(() => import("./Components/Users/UsersContainer"));
 
-const { Header, Content, Sider, Footer } = Layout;
+const {Header, Content, Sider, Footer} = Layout;
 
 class App extends React.Component {
 
@@ -29,7 +29,7 @@ class App extends React.Component {
     render() {
 
         if (!this.props.initialized)
-            return <Preloader />
+            return <Preloader/>
 
         return (
             <Layout className="container">
@@ -79,24 +79,18 @@ class App extends React.Component {
                         >
 
                             <div>
-                                <Route path='/profile/:userId?'
-                                       render={() => <ProfileContainer />}/>
-                                <Route path='/dialogs'
-                                       render={() => <DialogsContainer />}/>
-                                <Route path='/news'
-                                       render={() => <News />}/>
-                                <Route path='/music'
-                                       render={() => <Music />}/>
-                                <Route path='/settings'
-                                       render={() => <Settings />}/>
-                                <Route path='/users'
-                                       render={() => <UsersContainer />}/>
-                                <Route path='/login'
-                                       render={() => <AntLoginForm />}/>
-                                {/*<Route path='/login'
-                                       render={() => <Login />}/>*/}
+                                <Suspense fallback={<div>Загрузка...</div>}>
+                                    <Switch>
+                                        <Route path='/profile/:userId?' component={ProfileContainer}/>
+                                        <Route path='/dialogs' component={DialogsContainer}/>
+                                        <Route path='/news' component={News}/>
+                                        <Route path='/music' component={Music}/>
+                                        <Route path='/settings' component={Settings}/>
+                                        <Route path='/users' component={UsersContainer}/>
+                                        <Route path='/login' component={AntLoginForm}/>
+                                    </Switch>
+                                </Suspense>
                             </div>
-
 
                         </Content>
                     </Layout>
@@ -115,13 +109,13 @@ const mapStateToProps = (state) => ({
 const AppContainer = compose(
     connect(mapStateToProps, {initializeApp}),
     withRouter
-    )(App)
+)(App)
 
 const MainApp = () => {
     return (
         <Provider store={store}>
             <BrowserRouter>
-                <AppContainer />
+                <AppContainer/>
             </BrowserRouter>
         </Provider>
     )

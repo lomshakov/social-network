@@ -22,7 +22,6 @@ import {
     getUsersSuperSelector
 } from "../../Redux/users-selectors";
 
-
 class UsersContainer extends React.Component{
 
     componentDidMount() {
@@ -57,7 +56,6 @@ class UsersContainer extends React.Component{
         </>
     }
 }
-
 
 let mapStateToProps = (state) => {
     return {
