@@ -1,6 +1,6 @@
 import 'antd/dist/antd.css';
 import React, {useState} from "react";
-import {Form, Input, Button, Checkbox, Alert, Modal} from 'antd';
+import {Form, Input, Button, Checkbox, Alert, Modal, Image} from 'antd';
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {login} from "../../Redux/auth-reducer";
@@ -14,7 +14,7 @@ const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
 };
 
-const AntLoginForm = ({ isAuth, login, authError }) => {
+const AntLoginForm = ({ isAuth, login, authError, captchaUrl }) => {
 
     const [visible, setVisible] = useState(true);
 
@@ -33,15 +33,15 @@ const AntLoginForm = ({ isAuth, login, authError }) => {
             onCancel={handleCancel}
             footer={null}
         >
-            <LoginForm login={login} authError={authError}/>
+            <LoginForm login={login} authError={authError} captchaUrl={captchaUrl}/>
         </Modal>
     )
 }
 
-const LoginForm = ({ login, authError }) => {
+const LoginForm = ({ login, authError, captchaUrl }) => {
 
     const onFinish = (values: any) => {
-        login(values.email, values.password, values.remember)
+        login(values.email, values.password, values.remember, values.captcha)
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -88,13 +88,31 @@ const LoginForm = ({ login, authError }) => {
                 </Button>
             </Form.Item>
 
+            { captchaUrl && <Captcha captchaUrl={captchaUrl} /> }
+
         </Form>
     );
 };
 
+const Captcha = ({ captchaUrl }) => {
+    return (
+        <div>
+            <Form.Item label="Captcha:">
+                <Image width={200} src={captchaUrl} />
+            </Form.Item>
+
+            <Form.Item label="Please, type symbols:"
+                       name="captcha">
+                <Input />
+            </Form.Item>
+        </div>
+    )
+}
+
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
-    authError: state.auth.authError
+    authError: state.auth.authError,
+    captchaUrl: state.auth.captchaUrl
 })
 
 export default connect(mapStateToProps, {login})(AntLoginForm);
