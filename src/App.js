@@ -15,6 +15,7 @@ import Preloader from "./Components/common/Preloader/Preloader";
 import './App.css';
 import AntLoginForm from "./Components/Login/AntLoginForm";
 import store from "./Redux/redux-store";
+import ProfileContainerWithHooks from "./Components/Profile/ProfileContainerWithHooks";
 
 const DialogsContainer = lazy(() => import("./Components/Dialogs/DialogsContainer"));
 const UsersContainer = lazy(() => import("./Components/Users/UsersContainer"));
@@ -81,7 +82,8 @@ class App extends React.Component {
                             <div>
                                 <Suspense fallback={<div>Загрузка...</div>}>
                                     <Switch>
-                                        <Route path='/profile/:userId?' component={ProfileContainer}/>
+                                        {/*<Route path='/profile/:userId?' component={ProfileContainer}/>*/}
+                                        <Route path='/profile/:userId?' component={ProfileContainerWithHooks}/>
                                         <Route path='/dialogs' component={DialogsContainer}/>
                                         <Route path='/news' component={News}/>
                                         <Route path='/music' component={Music}/>

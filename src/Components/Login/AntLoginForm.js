@@ -1,5 +1,5 @@
 import 'antd/dist/antd.css';
-import React from "react";
+import React, {useState} from "react";
 import {Form, Input, Button, Checkbox, Alert, Modal} from 'antd';
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
@@ -16,7 +16,7 @@ const tailLayout = {
 
 const AntLoginForm = ({ isAuth, login, authError }) => {
 
-    const [visible, setVisible] = React.useState(true);
+    const [visible, setVisible] = useState(true);
 
     const handleCancel = () => {
         setVisible(false);

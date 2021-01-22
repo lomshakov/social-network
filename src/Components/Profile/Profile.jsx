@@ -3,7 +3,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PostsContainer from "./MyPosts/Post/PostsContainer";
 import AddPostContainer from "./MyPosts/AddPostContainer";
 
-const Profile = ({ profile, status, updateStatus, isAuth, savePhoto, isOwner }) => {
+const Profile = ({ profile, status, updateStatus, saveProfile, savePhoto, isOwner, error }) => {
 
     return (
         <div className={style.profile}>
@@ -11,8 +11,9 @@ const Profile = ({ profile, status, updateStatus, isAuth, savePhoto, isOwner }) 
                          isOwner={isOwner}
                          status={status}
                          updateStatus={updateStatus}
-                         isAuth={isAuth}
-                         savePhoto={savePhoto}/>
+                         savePhoto={savePhoto}
+                         saveProfile={saveProfile}
+                         error={error}/>
             <AddPostContainer/>
             <PostsContainer/>
         </div>

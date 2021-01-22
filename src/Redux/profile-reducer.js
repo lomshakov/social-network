@@ -4,7 +4,8 @@ const ADD_POST = 'profile/ADD-POST';
 const DELETE_POST = 'profile/DELETE_POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
 const SET_STATUS = 'profile/SET_STATUS';
-const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
+const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS';
+const SET_PROFILE_CHANGE_ERROR = 'profile/SET_PROFILE_CHANGE_ERROR';
 
 // initial State
 let initialState = {
@@ -15,7 +16,8 @@ let initialState = {
     ],
 
     profile: null,
-    status: ''
+    status: '',
+    profileChangeError: ''
 };
 
 // reducer
@@ -56,6 +58,11 @@ const profileReducer = (state= initialState, action) => {
                 ...state,
                 profile: {...state.profile, photos: action.photos}
             }
+        case SET_PROFILE_CHANGE_ERROR:
+            return {
+                ...state,
+                profileChangeError: action.payload
+            }
 
         default:
             return state;
@@ -68,6 +75,7 @@ export const deletePost = (postId) => ({type: DELETE_POST, postId});
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
 export const setStatus = (status) => ({type: SET_STATUS, status})
 export const savePhotoSuccess = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos})
+export const setProfileChangeError = (error) => ({type: SET_PROFILE_CHANGE_ERROR, payload: error})
 
 // thunks
 export const getProfileData = (userID) => async (dispatch) => {
@@ -87,11 +95,19 @@ export const updateStatus = (status) => async (dispatch) => {
 }
 
 export const savePhoto = (file) => async (dispatch) => {
-
     let response = await profileAPI.savePhoto(file)
-
     if (response.data.resultCode === 0)
         dispatch(savePhotoSuccess(response.data.data.photos))
+}
+
+export const saveProfile = (profile) => async (dispatch, getState) => {
+    const userId = getState().auth.userId
+    let response = await profileAPI.saveProfile(profile)
+
+    response.data.resultCode === 0
+        ? dispatch(getProfileData(userId))
+        : dispatch(setProfileChangeError(response.data.messages[0]))
+
 }
 
 export default profileReducer;
