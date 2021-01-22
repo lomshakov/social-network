@@ -15,9 +15,9 @@ import Preloader from "./Components/common/Preloader/Preloader";
 import './App.css';
 import AntLoginForm from "./Components/Login/AntLoginForm";
 import store from "./Redux/redux-store";
+
 const DialogsContainer = lazy(() => import("./Components/Dialogs/DialogsContainer"));
 const UsersContainer = lazy(() => import("./Components/Users/UsersContainer"));
-
 const {Header, Content, Sider, Footer} = Layout;
 
 class App extends React.Component {
