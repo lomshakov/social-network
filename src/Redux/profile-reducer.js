@@ -21,7 +21,7 @@ let initialState = {
 };
 
 // reducer
-const profileReducer = (state= initialState, action) => {
+const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_POST:
@@ -89,9 +89,15 @@ export const getUserStatus = (userID) => async (dispatch) => {
 }
 
 export const updateStatus = (status) => async (dispatch) => {
-    let response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0)
-        dispatch(setStatus(status))
+    try {
+        let response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
+    } catch (error) {
+        // debugger
+        // alert(error)
+    }
 }
 
 export const savePhoto = (file) => async (dispatch) => {

@@ -40,11 +40,11 @@ const AntLoginForm = ({ isAuth, login, authError, captchaUrl }) => {
 
 const LoginForm = ({ login, authError, captchaUrl }) => {
 
-    const onFinish = (values: any) => {
+    const onFinish = (values) => {
         login(values.email, values.password, values.remember, values.captcha)
     };
 
-    const onFinishFailed = (errorInfo: any) => {
+    const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 

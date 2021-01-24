@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import News from "./Components/News/News";
-import {BrowserRouter, Link, Route} from "react-router-dom";
+import {BrowserRouter, Link, Redirect, Route} from "react-router-dom";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import {Layout, Menu} from 'antd';
@@ -16,6 +16,7 @@ import './App.css';
 import AntLoginForm from "./Components/Login/AntLoginForm";
 import store from "./Redux/redux-store";
 import ProfileContainerWithHooks from "./Components/Profile/ProfileContainerWithHooks";
+import Error404 from "./Components/common/Errors/404";
 
 const DialogsContainer = lazy(() => import("./Components/Dialogs/DialogsContainer"));
 const UsersContainer = lazy(() => import("./Components/Users/UsersContainer"));
@@ -25,6 +26,7 @@ class App extends React.Component {
 
     componentDidMount() {
         this.props.initializeApp()
+        window.addEventListener('unHandledRejection', this.catchAllUnhandledErrors)
     }
 
     render() {
@@ -83,6 +85,7 @@ class App extends React.Component {
                                 <Suspense fallback={<div>Загрузка...</div>}>
                                     <Switch>
                                         {/*<Route path='/profile/:userId?' component={ProfileContainer}/>*/}
+                                        <Route exact path='/' children={ () => <Redirect to="/profile" /> }/>
                                         <Route path='/profile/:userId?' component={ProfileContainerWithHooks}/>
                                         <Route path='/dialogs' component={DialogsContainer}/>
                                         <Route path='/news' component={News}/>
@@ -90,6 +93,7 @@ class App extends React.Component {
                                         <Route path='/settings' component={Settings}/>
                                         <Route path='/users' component={UsersContainer}/>
                                         <Route path='/login' component={AntLoginForm}/>
+                                        <Route path='*' component={Error404}/>
                                     </Switch>
                                 </Suspense>
                             </div>
