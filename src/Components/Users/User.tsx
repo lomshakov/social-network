@@ -1,17 +1,28 @@
-import style from "./Users.module.css";
-import 'antd/dist/antd.css';
-import userPhoto from "../../assets/images/user.png";
-import {NavLink} from "react-router-dom";
+import React from 'react'
+import style from './Users.module.css'
+import 'antd/dist/antd.css'
+import userPhoto from '../../assets/images/user.png'
+import {NavLink} from 'react-router-dom'
+import {UsersType} from '../../types/types'
 
+type PropsType = {
+    followingInProgress: Array<number>
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    user: UsersType
+}
 
-let User = ({ followingInProgress, follow, unfollow, user }) => {
+let User: React.FC<PropsType> = ({ followingInProgress,
+                                     follow,
+                                     unfollow,
+                                     user }) => {
 
     return (
         <div className={style.users}>
             <div className={style.usersAvatar}>
                 <div>
                     <NavLink to={"/profile/" + user.id}>
-                        <img src={user.photos.small != null ? user.photos.small : userPhoto}/>
+                        <img alt='User avatar' src={user.photos.small != null ? user.photos.small : userPhoto}/>
                     </NavLink>
                 </div>
                 <div>

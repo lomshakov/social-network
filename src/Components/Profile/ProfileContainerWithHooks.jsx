@@ -1,22 +1,21 @@
-import React, { useEffect } from "react";
-import Profile from "./Profile";
-import {connect} from "react-redux";
-import {getProfileData, getUserStatus, savePhoto, saveProfile, updateStatus} from "../../Redux/profile-reducer";
-import {withRouter} from 'react-router-dom';
-import {compose} from "redux";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-
+import React, { useEffect } from 'react'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import Profile from './Profile'
+import { getProfileData, getUserStatus, savePhoto, saveProfile, updateStatus } from '../../Redux/profile-reducer'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 const ProfileContainerWithHooks = ({ profile, authorizedUserId, getProfileData, getUserStatus, status, updateStatus, isAuth, savePhoto, saveProfile, error, ...props }) => {
 
     useEffect(() => {
-        let userId = props.match.params.userId;
+        let userId = props.match.params.userId
 
         if (!props.match.params.userId) {
             userId = authorizedUserId
         }
 
-        getProfileData(userId);
-        getUserStatus(userId);
+        getProfileData(userId)
+        getUserStatus(userId)
     })
 
     return <Profile {...props}
@@ -43,4 +42,4 @@ export default compose(
     connect(mapStateToProps, {getProfileData, getUserStatus, updateStatus, savePhoto, saveProfile}),
     withRouter,
     withAuthRedirect
-)(ProfileContainerWithHooks);
+)(ProfileContainerWithHooks)
