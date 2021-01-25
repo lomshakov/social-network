@@ -1,14 +1,12 @@
-import {getAuthData} from "./auth-reducer";
+import {getAuthData} from "./auth-reducer"
 
-const SET_INITIALIZED = 'app/SET_INITIALIZED';
+const SET_INITIALIZED = 'APP/SET_INITIALIZED'
 
-type InitialStateType = {
-    initialized: boolean
-};
-
-let initialState: InitialStateType = {
+let initialState = {
     initialized: false
 };
+
+type InitialStateType = typeof initialState
 
 const appReducer = (state = initialState, action: any): InitialStateType => {
 
@@ -20,18 +18,18 @@ const appReducer = (state = initialState, action: any): InitialStateType => {
             }
 
         default:
-            return state;
+            return state
     }
-};
+}
 
 type SetInitializedActionType = {
     type: typeof SET_INITIALIZED
 }
-export const setInitialized = (): SetInitializedActionType => ( {type: SET_INITIALIZED} as SetInitializedActionType);
+export const setInitialized = (): SetInitializedActionType => ( {type: SET_INITIALIZED} as SetInitializedActionType)
 
 export const initializeApp = () => async (dispatch: any) => {
-    await dispatch(getAuthData());
-    dispatch(setInitialized());
+    await dispatch(getAuthData())
+    dispatch(setInitialized())
 }
 
-export default appReducer;
+export default appReducer

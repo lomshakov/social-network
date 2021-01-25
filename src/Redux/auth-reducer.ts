@@ -1,26 +1,19 @@
-import {authAPI, securityAPI} from "../api/api";
+import {authAPI, securityAPI} from "../api/api"
 
-const SET_USER_DATA = "auth/SET_USER_DATA";
-const SET_AUTH_ERROR = "auth/SET_AUTH_ERROR";
-const GET_CAPTCHA_URL = "auth/GET_CAPTCHA_URL";
+const SET_USER_DATA = "AUTH/SET_USER_DATA"
+const SET_AUTH_ERROR = "AUTH/SET_AUTH_ERROR"
+const GET_CAPTCHA_URL = "AUTH/GET_CAPTCHA_URL"
 
-type InitialStateType = {
-    userId: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-    authError: string | null
-    captchaUrl: string | null
-};
-
-let initialState: InitialStateType = {
-    userId: null,
-    email: null,
-    login: null,
+let initialState = {
+    userId: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isAuth: false,
-    authError: null,
-    captchaUrl: null
-};
+    authError: null as string | null,
+    captchaUrl: null as string | null
+}
+
+type InitialStateType = typeof initialState
 
 const authReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
@@ -40,7 +33,7 @@ const authReducer = (state = initialState, action: any): InitialStateType => {
                 captchaUrl: action.payload
             }
         default:
-            return state;
+            return state
     }
 };
 
@@ -76,8 +69,8 @@ export const setCaptchaUrl = (captchaUrl: string): SetCaptchaUrlActionType => ({
 export const getAuthData = () => async (dispatch: any) => {
     const response = await authAPI.getAuthData()
     if (response.data.resultCode === 0) {
-        let {id, email, login} = response.data.data;
-        dispatch(setAuthUserData(id, email, login, true));
+        let {id, email, login} = response.data.data
+        dispatch(setAuthUserData(id, email, login, true))
     }
 }
 
@@ -104,4 +97,4 @@ export const getCaptchaUrl = () => async (dispatch: any) => {
     dispatch(setCaptchaUrl(captchaUrl))
 }
 
-export default authReducer;
+export default authReducer

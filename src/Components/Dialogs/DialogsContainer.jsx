@@ -1,4 +1,4 @@
-import {addMessageActionCreator} from "../../Redux/dialogs-reducer";
+import {addMessage} from "../../Redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -41,7 +41,7 @@ let mapStateToProps = (state) => {
 // };
 
 export default compose(
-    connect(mapStateToProps, {addMessageActionCreator}),
+    connect(mapStateToProps, {addMessageActionCreator: addMessage}),
     withAuthRedirect
 )(DialogsContainer);
 
