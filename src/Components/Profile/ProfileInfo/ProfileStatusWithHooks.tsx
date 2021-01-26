@@ -35,7 +35,7 @@ const ProfileStatusWithHooks: React.FC<PropsType> = ({ status, updateStatus }) =
                     : <input onBlur={deactivateEditMode}
                              onChange={onStatusChange}
                              autoFocus={true}
-                             value={status} />
+                             value={currentStatus} />
             }
         </div>
     )

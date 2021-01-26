@@ -1,14 +1,16 @@
-import {profileAPI} from '../api/api'
-import {PhotosType, PostType, ProfileType} from "../types/types";
+import { profileAPI, ResultCode } from '../api/api'
+import { PhotosType, PostType, ProfileType } from '../types/types'
+import { Dispatch } from 'redux'
+import { ThunkAction } from 'redux-thunk'
+import { AppStateType } from './redux-store'
 
+// string types
 const ADD_POST = 'PROFILE/ADD-POST'
 const DELETE_POST = 'PROFILE/DELETE_POST'
 const SET_USER_PROFILE = 'PROFILE/SET_USER_PROFILE'
 const SET_STATUS = 'PROFILE/SET_STATUS'
 const SAVE_PHOTO_SUCCESS = 'PROFILE/SAVE_PHOTO_SUCCESS'
 const SET_PROFILE_CHANGE_ERROR = 'PROFILE/SET_PROFILE_CHANGE_ERROR'
-
-
 
 // initial State
 let initialState = {
@@ -20,7 +22,7 @@ let initialState = {
     profile: null as ProfileType | null,
     status: '',
     profileChangeError: ''
-};
+}
 
 type InitialStateType = typeof initialState
 
@@ -73,35 +75,35 @@ const profileReducer = (state = initialState, action: any): InitialStateType => 
     }
 };
 
+// definition types for Action creators
 type AddPostActionType = {
     type: typeof ADD_POST
     post: string
 }
-
 type DeletePostActionType = {
     type: typeof DELETE_POST
     postId: number
 }
-
 type SetUserProfileActionType = {
     type: typeof SET_USER_PROFILE
     profile: ProfileType
 }
-
 type SetStatusActionType = {
     type: typeof SET_STATUS
     status: string
 }
-
 type SavePhotoSuccessActionType = {
     type: typeof SAVE_PHOTO_SUCCESS
     photos: PhotosType
 }
-
 type SetProfileChangeErrorActionType = {
     type: typeof SET_PROFILE_CHANGE_ERROR
     error: string
 }
+
+// main actions type
+type ActionsTypes = AddPostActionType | DeletePostActionType | SetUserProfileActionType | SetStatusActionType
+                    | SavePhotoSuccessActionType | SetProfileChangeErrorActionType
 
 // Action-creators
 export const addPost = (post: string): AddPostActionType => ({type: ADD_POST, post})
@@ -111,21 +113,26 @@ export const setStatus = (status: string): SetStatusActionType => ({type: SET_ST
 export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessActionType => ({type: SAVE_PHOTO_SUCCESS, photos})
 export const setProfileChangeError = (error: string): SetProfileChangeErrorActionType => ({type: SET_PROFILE_CHANGE_ERROR, error})
 
+// definition types for thunks-creators
+type DispatchType = Dispatch<ActionsTypes>
+type GetStateType = () => AppStateType
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+
 // thunks
-export const getProfileData = (userID: number) => async (dispatch: any) => {
-    let response = await profileAPI.getProfileData(userID)
-    dispatch(setUserProfile(response.data))
+export const getProfileData = (userID: number | null): ThunkType => async (dispatch: DispatchType) => {
+    let data = await profileAPI.getProfileData(userID)
+    dispatch(setUserProfile(data))
 }
 
-export const getUserStatus = (userID: number) => async (dispatch: any) => {
-    let response = await profileAPI.getStatus(userID)
-    dispatch(setStatus(response.data))
+export const getUserStatus = (userID: number): ThunkType => async (dispatch: DispatchType) => {
+    let data = await profileAPI.getStatus(userID)
+    dispatch(setStatus(data))
 }
 
-export const updateStatus = (status: string) => async (dispatch: any) => {
+export const updateStatus = (status: string): ThunkType => async (dispatch: DispatchType) => {
     try {
-        let response = await profileAPI.updateStatus(status)
-        if (response.data.resultCode === 0) {
+        let data = await profileAPI.updateStatus(status)
+        if (data.resultCode === ResultCode.Success) {
             dispatch(setStatus(status))
         }
     } catch (error) {
@@ -134,20 +141,19 @@ export const updateStatus = (status: string) => async (dispatch: any) => {
     }
 }
 
-export const savePhoto = (file: any) => async (dispatch: any) => {
-    let response = await profileAPI.savePhoto(file)
-    if (response.data.resultCode === 0)
-        dispatch(savePhotoSuccess(response.data.data.photos))
+export const savePhoto = (file: any): ThunkType => async (dispatch: DispatchType) => {
+    let data = await profileAPI.savePhoto(file)
+    if (data.resultCode === ResultCode.Success)
+        dispatch(savePhotoSuccess(data.data))
 }
 
-export const saveProfile = (profile: ProfileType) => async (dispatch: any, getState: any) => {
+export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch: any, getState: GetStateType) => {
     const userId = getState().auth.userId
-    let response = await profileAPI.saveProfile(profile)
+    let data = await profileAPI.saveProfile(profile)
 
-    response.data.resultCode === 0
+    data.resultCode === ResultCode.Success
         ? dispatch(getProfileData(userId))
-        : dispatch(setProfileChangeError(response.data.messages[0]))
-
+        : dispatch(setProfileChangeError(data.messages[0]))
 }
 
 export default profileReducer

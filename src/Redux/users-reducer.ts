@@ -1,9 +1,9 @@
-import {Dispatch} from 'redux'
-import {usersAPI} from '../api/api'
-import {updateObjectInArray} from '../utils/object-utils'
-import {UsersType} from '../types/types'
-import {ThunkAction} from 'redux-thunk'
-import {AppStateType} from './redux-store'
+import { Dispatch } from 'redux'
+import {ResultCode, usersAPI} from '../api/api'
+import { updateObjectInArray } from '../utils/object-utils'
+import { UsersType } from '../types/types'
+import { ThunkAction } from 'redux-thunk'
+import { AppStateType } from './redux-store'
 
 // string types
 const FOLLOW = 'USERS/FOLLOW'
@@ -29,7 +29,6 @@ type InitialStateType = typeof initialState
 
 // reducer
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
-
     switch (action.type) {
 
         case FOLLOW:
@@ -136,11 +135,11 @@ export const requestUsers = (page: number, pageSize: number): ThunkType => async
     dispatch(toggleIsFetching(true))
     dispatch(setCurrentPage(page))
 
-    let response = await usersAPI.getUsers(page, pageSize)
+    let data = await usersAPI.getUsers(page, pageSize)
 
     dispatch(toggleIsFetching(false))
-    dispatch(setUsers(response.items))
-    dispatch(setTotalUsersCount(response.totalCount))
+    dispatch(setUsers(data.items))
+    dispatch(setTotalUsersCount(data.totalCount))
 }
 
 const _followUnfollowFlow = async (dispatch: DispatchType,
@@ -149,8 +148,9 @@ const _followUnfollowFlow = async (dispatch: DispatchType,
                                    actionCreator: (userID: number) => FollowSuccessActionType | UnfollowSuccessActionType) => {
     dispatch(toggleIsFollowing(true, userID))
 
-    let response = await apiMethod(userID)
-    if (response.data.resultCode === 0)
+    let data = await apiMethod(userID)
+
+    if (data.resultCode === ResultCode.Success)
         dispatch(actionCreator(userID))
 
     dispatch(toggleIsFollowing(false, userID))

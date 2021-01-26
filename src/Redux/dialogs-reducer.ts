@@ -1,15 +1,9 @@
+import { DialogType, MessageType } from '../types/types'
+
+// string types
 const SEND_MESSAGE = 'DIALOGS/ADD-MESSAGE'
 
-type DialogType = {
-    id: number
-    name: string
-}
-
-type MessageType = {
-    id: number
-    message: string
-}
-
+// initial state
 let initialState = {
     dialogs: [{id: 1, name: 'Dmitriy'},
         {id: 2, name: 'Alex'},
@@ -26,7 +20,8 @@ let initialState = {
 
 type InitialStateType = typeof initialState
 
-const dialogsReducer = (state = initialState, action: any): InitialStateType => {
+// reducer
+const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
     switch (action.type) {
         case SEND_MESSAGE:
@@ -39,12 +34,17 @@ const dialogsReducer = (state = initialState, action: any): InitialStateType => 
         default:
             return state
     }
-};
-
+}
+// definition types for Action creators
 type addMessageActionType = {
     type: typeof SEND_MESSAGE
     message: string
 }
-export const addMessage = (message: string): addMessageActionType => ({ type: SEND_MESSAGE, message: message })
+
+// main actions type
+type ActionsTypes = addMessageActionType
+
+// action-creators
+export const addMessage = (message: string): addMessageActionType => ({ type: SEND_MESSAGE, message })
 
 export default dialogsReducer

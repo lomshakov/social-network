@@ -31,10 +31,29 @@ export type ProfileType = {
     contacts: ContactsType
 }
 
+export type ProfileTypeForSave = {
+    userId: number
+    fullName: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    aboutMe: string
+    contacts: ContactsType
+}
+
 export type UsersType = {
     id: number
     name: string
     status: string
     photos: PhotosType
     followed: boolean
+}
+
+export type DialogType = {
+    id: number
+    name: string
+}
+
+export type MessageType = {
+    id: number
+    message: string
 }
