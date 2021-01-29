@@ -1,17 +1,20 @@
-import * as React from "react";
-import { List, Avatar, Space } from 'antd';
-import { FieldTimeOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
+import React from 'react'
+import { connect } from 'react-redux'
+import { AppStateType } from '../../../../Redux/redux-store'
+import { PostType } from '../../../../types/types'
+import { Avatar, List, Space } from 'antd'
+import { FieldTimeOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons'
 
-
-const Posts = React.memo(({ login, posts }) => {
-    
-    const IconText = ({ icon, text }) => (
+const IconText: React.FC<{ icon: any, text: any }> = ({ icon, text }) => {
+    return (
         <Space>
             {React.createElement(icon)}
             {text}
         </Space>
-    );
+    )
+}
 
+const Posts: React.FC<MapStateToPropsType> = React.memo(({ login, posts }) => {
     return (
         <List
             itemLayout="vertical"
@@ -24,7 +27,7 @@ const Posts = React.memo(({ login, posts }) => {
             }}
             dataSource={posts}
 
-            renderItem={item => (
+            renderItem={ (item: any) => (
                 <List.Item
                     key={item.id}
                     actions={[
@@ -44,6 +47,21 @@ const Posts = React.memo(({ login, posts }) => {
             )}
         />
     )
-});
+})
 
-export default Posts;
+
+type MapStateToPropsType = {
+    posts: Array<PostType>
+    login: string | null
+}
+
+let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+    return {
+        posts: state.profilePage.posts,
+        login: state.auth.login
+    }
+}
+
+let PostsContainer = connect(mapStateToProps, null)(Posts)
+
+export default PostsContainer

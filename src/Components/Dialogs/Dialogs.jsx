@@ -1,11 +1,11 @@
-import style from './Dialogs.module.css';
-import DialogItem from "./DialogItem/DialogItem";
-import Message from "./Message/Message";
-import * as React from "react";
-import {Redirect} from "react-router-dom"
-import {Field, Form} from 'react-final-form'
-import {TextArea} from "../common/FormsControls/FormsControls";
-import {composeValidators, maxLength, minLength, required} from "../../utils/validators/validators";
+import style from './Dialogs.module.css'
+import DialogItem from './DialogItem/DialogItem'
+import Message from './Message/Message'
+import React from 'react'
+import { Field, Form } from 'react-final-form'
+import { TextArea } from '../common/FormsControls/FormsControls'
+import { composeValidators, maxLength, minLength, required } from '../../utils/validators/validators'
+import { Button } from 'antd'
 
 const Dialogs = (props) => {
 
@@ -48,7 +48,10 @@ const MessageForm = (props) => {
                              placeholder={"message here..."}>
                       </Field>
 
-                      <button className={style.button} type="submit" disabled={submitting || pristine}>add post</button>
+                      <Button type="primary"
+                              htmlType="submit"
+                              disabled={submitting || pristine}>Add post
+                      </Button>
 
                   </form>
               )}

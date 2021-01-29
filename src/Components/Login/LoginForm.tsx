@@ -1,26 +1,28 @@
-import 'antd/dist/antd.css';
-import React, {useState} from "react";
-import {Form, Input, Button, Checkbox, Alert, Modal, Image} from 'antd';
-import {Redirect} from "react-router-dom";
-import {connect} from "react-redux";
-import {login} from "../../Redux/auth-reducer";
+import 'antd/dist/antd.css'
+import React, { useState } from 'react'
+import { Form, Input, Button, Checkbox, Alert, Modal } from 'antd'
+import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { login } from '../../Redux/auth-reducer'
+import Captcha from './Captcha'
+import { AppStateType } from '../../Redux/redux-store'
 
 const layout = {
     labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-};
+    wrapperCol: { span: 16 }
+}
 
 const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-};
+    wrapperCol: { offset: 8, span: 16 }
+}
 
-const AntLoginForm = ({ isAuth, login, authError, captchaUrl }) => {
+const ModalLogin: React.FC<MapStateToPropsType & MapDispatchToPropsType> = ({ isAuth, login, authError, captchaUrl }) => {
 
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(true)
 
     const handleCancel = () => {
-        setVisible(false);
-    };
+        setVisible(false)
+    }
 
     if (isAuth) {
         return <Redirect to={"/profile"}/>
@@ -33,20 +35,20 @@ const AntLoginForm = ({ isAuth, login, authError, captchaUrl }) => {
             onCancel={handleCancel}
             footer={null}
         >
-            <LoginForm login={login} authError={authError} captchaUrl={captchaUrl}/>
+            <LoginForm login={login} authError={authError} captchaUrl={captchaUrl} isAuth={isAuth}/>
         </Modal>
     )
 }
 
-const LoginForm = ({ login, authError, captchaUrl }) => {
+const LoginForm: React.FC<MapStateToPropsType & MapDispatchToPropsType> = ({ login, authError, captchaUrl }) => {
 
-    const onFinish = (values) => {
+    const onFinish = (values: any) => {
         login(values.email, values.password, values.remember, values.captcha)
-    };
+    }
 
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo)
+    }
 
     return (
         <Form
@@ -91,28 +93,23 @@ const LoginForm = ({ login, authError, captchaUrl }) => {
             { captchaUrl && <Captcha captchaUrl={captchaUrl} /> }
 
         </Form>
-    );
-};
-
-const Captcha = ({ captchaUrl }) => {
-    return (
-        <div>
-            <Form.Item label="Captcha:">
-                <Image width={200} src={captchaUrl} />
-            </Form.Item>
-
-            <Form.Item label="Please, type symbols:"
-                       name="captcha">
-                <Input />
-            </Form.Item>
-        </div>
     )
 }
 
-const mapStateToProps = (state) => ({
+type MapStateToPropsType = {
+    isAuth: boolean
+    authError: string | null
+    captchaUrl: string | null
+}
+
+type MapDispatchToPropsType = {
+    login: (email: string, password: string, rememberMe: boolean, captcha: null | string) => void
+}
+
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     isAuth: state.auth.isAuth,
     authError: state.auth.authError,
     captchaUrl: state.auth.captchaUrl
 })
 
-export default connect(mapStateToProps, {login})(AntLoginForm);
+export default connect(mapStateToProps, { login })(ModalLogin)

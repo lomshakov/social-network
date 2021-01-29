@@ -1,6 +1,6 @@
-import style from './Music.module.css';
+import React from 'react'
 
-const Music = (props) => {
+const Music: React.FC<any> = (props) => {
     return (
         <div>
             Music Page

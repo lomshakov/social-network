@@ -5,7 +5,10 @@ import { withRouter } from 'react-router-dom'
 import Profile from './Profile'
 import { getProfileData, getUserStatus, savePhoto, saveProfile, updateStatus } from '../../Redux/profile-reducer'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
-const ProfileContainerWithHooks = ({ profile, authorizedUserId, getProfileData, getUserStatus, status, updateStatus, isAuth, savePhoto, saveProfile, error, ...props }) => {
+
+const ProfileContainerWithHooks = ({ profile, authorizedUserId, getProfileData,
+                                     getUserStatus, status, updateStatus, isAuth,
+                                     savePhoto, saveProfile, error, ...props }) => {
 
     useEffect(() => {
         let userId = props.match.params.userId

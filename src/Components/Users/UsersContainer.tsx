@@ -23,7 +23,7 @@ import {
 import { UsersType } from '../../types/types'
 import { AppStateType } from '../../Redux/redux-store'
 
-type mapStateToPropsType = {
+type MapStateToPropsType = {
     pageSize: number
     currentPage: number
     totalUsersCount: number
@@ -32,7 +32,7 @@ type mapStateToPropsType = {
     followingInProgress: Array<number>
 }
 
-type mapDispatchToPropsType = {
+type MapDispatchToPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     requestUsers: (currentPage: number, pageSize: number) => void
@@ -41,9 +41,7 @@ type mapDispatchToPropsType = {
     setCurrentPage: (pageNumber: number) => void
 }
 
-type PropsType = mapStateToPropsType & mapDispatchToPropsType
-
-class UsersContainer extends React.Component<PropsType> {
+class UsersContainer extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
 
     componentDidMount() {
         this.props.requestUsers(this.props.currentPage, this.props.pageSize)
@@ -79,7 +77,7 @@ class UsersContainer extends React.Component<PropsType> {
     }
 }
 
-let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         users: getUsersSelector(state),
         pageSize: getPageSize(state),

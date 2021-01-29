@@ -1,26 +1,25 @@
-import React, {Suspense, lazy} from "react";
-import 'antd/dist/antd.css';
-import Music from "./Components/Music/Music";
-import Settings from "./Components/Settings/Settings";
-import News from "./Components/News/News";
-import {BrowserRouter, Link, Redirect, Route} from "react-router-dom";
-import ProfileContainer from "./Components/Profile/ProfileContainer";
-import HeaderContainer from "./Components/Header/HeaderContainer";
-import {Layout, Menu} from 'antd';
-import {withRouter, Switch} from "react-router-dom";
-import {connect, Provider} from "react-redux";
-import {compose} from "redux";
-import {initializeApp} from "./Redux/app-reducer";
-import Preloader from "./Components/common/Preloader/Preloader";
-import './App.css';
-import AntLoginForm from "./Components/Login/AntLoginForm";
-import store from "./Redux/redux-store";
-import ProfileContainerWithHooks from "./Components/Profile/ProfileContainerWithHooks";
-import Error404 from "./Components/common/Errors/404";
+import React, {Suspense, lazy} from 'react'
+import 'antd/dist/antd.css'
+import Music from './Components/Music/Music'
+import Settings from './Components/Settings/Settings'
+import News from './Components/News/News'
+import {BrowserRouter, Link, Redirect, Route} from 'react-router-dom'
+import HeaderContainer from './Components/Header/HeaderContainer'
+import {Layout, Menu} from 'antd'
+import {withRouter, Switch} from 'react-router-dom'
+import {connect, Provider} from 'react-redux'
+import {compose} from 'redux'
+import {initializeApp} from './Redux/app-reducer'
+import Preloader from './Components/common/Preloader/Preloader'
+import './App.css'
+import LoginForm from './Components/Login/LoginForm'
+import store from './Redux/redux-store'
+import ProfileContainerWithHooks from './Components/Profile/ProfileContainerWithHooks'
+import Error404 from './Components/common/Errors/404'
 
-const DialogsContainer = lazy(() => import("./Components/Dialogs/DialogsContainer"));
-const UsersContainer = lazy(() => import("./Components/Users/UsersContainer"));
-const {Header, Content, Sider, Footer} = Layout;
+const DialogsContainer = lazy(() => import("./Components/Dialogs/DialogsContainer"))
+const UsersContainer = lazy(() => import("./Components/Users/UsersContainer"))
+const {Header, Content, Sider, Footer} = Layout
 
 class App extends React.Component {
 
@@ -37,7 +36,7 @@ class App extends React.Component {
         return (
             <Layout className="container">
                 <Header>
-                    <HeaderContainer/>
+                    <HeaderContainer />
                 </Header>
                 <Layout>
                     <Sider width={200} className="site-layout-background">
@@ -92,7 +91,7 @@ class App extends React.Component {
                                         <Route path='/music' component={Music}/>
                                         <Route path='/settings' component={Settings}/>
                                         <Route path='/users' component={UsersContainer}/>
-                                        <Route path='/login' component={AntLoginForm}/>
+                                        <Route path='/login' component={LoginForm}/>
                                         <Route path='*' component={Error404}/>
                                     </Switch>
                                 </Suspense>

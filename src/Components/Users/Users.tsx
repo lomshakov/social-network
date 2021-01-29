@@ -3,7 +3,7 @@ import style from './Users.module.css'
 import 'antd/dist/antd.css'
 import { Pagination } from 'antd'
 import User from './User'
-import {UsersType} from '../../types/types'
+import { UsersType } from '../../types/types'
 
 type PropsType = {
     totalUsersCount: number
@@ -16,14 +16,14 @@ type PropsType = {
     setPageSize: (current: number, size: number) => void
 }
 
-let Users: React.FC<PropsType> = ({ totalUsersCount,
-                                      pageSize,
-                                      onPageChanged,
-                                      users,
-                                      followingInProgress,
-                                      follow,
-                                      unfollow,
-                                      setPageSize }) => {
+const Users: React.FC<PropsType> = ({ totalUsersCount,
+                                    pageSize,
+                                    onPageChanged,
+                                    users,
+                                    followingInProgress,
+                                    follow,
+                                    unfollow,
+                                    setPageSize }) => {
     return (
 
         <div className={style.usersPage}>

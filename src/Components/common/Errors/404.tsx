@@ -1,6 +1,7 @@
-import { Result, Button } from 'antd';
+import React from 'react'
+import { Result, Button } from 'antd'
 
-const Error404 = () => {
+const Error404: React.FC = () => {
     return (
         <Result
             status="404"
@@ -11,4 +12,4 @@ const Error404 = () => {
     )
 }
 
-export default Error404;
+export default Error404
