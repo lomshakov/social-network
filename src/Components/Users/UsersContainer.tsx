@@ -2,14 +2,12 @@ import React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import Users from './Users'
-import Preloader from '../common/Preloader/Preloader.js'
+import Preloader from '../common/Preloader/Preloader'
 import {
+    actions,
     follow,
-    setCurrentPage,
     unfollow,
-    toggleIsFollowing,
-    requestUsers,
-    setPageSize
+    requestUsers
 } from '../../Redux/users-reducer'
 import {withAuthRedirect} from '../../hoc/withAuthRedirect'
 import {
@@ -22,6 +20,8 @@ import {
 } from '../../Redux/users-selectors'
 import { UsersType } from '../../types/types'
 import { AppStateType } from '../../Redux/redux-store'
+
+const {setCurrentPage, toggleIsFollowing, setPageSize} = actions
 
 type MapStateToPropsType = {
     pageSize: number

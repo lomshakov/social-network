@@ -35,7 +35,8 @@ const ProfileInfo = ({ profile, isOwner, status, updateStatus, savePhoto, savePr
                 <img src={profile.photos.large || userPhoto}/>
                 {isOwner && <Input type={'file'} onChange={onChange}/>}
             </div>
-            {editMode ? <ProfileDataEdit profile={profile} handleSubmit={handleSubmit} error={error}/>
+            {editMode ? <ProfileDataEdit profile={profile} handleSubmit={handleSubmit}
+                                         error={error} deactivateEditMode={() => setEditMode(false)}/>
                       : <ProfileData profile={profile} status={status} updateStatus={updateStatus}
                                      isOwner={isOwner} error={error} activateEditMode={() => setEditMode(true)}/>}
 
@@ -72,4 +73,4 @@ const Contact = ({ contactTitle, contactValue }) => {
     return contactValue && <div>{contactTitle}: {contactValue}</div>
 }
 
-export default ProfileInfo;
+export default ProfileInfo

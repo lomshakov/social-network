@@ -18,6 +18,9 @@ let rootReducer = combineReducers({
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
+type PropertiesTypes<T> = T extends {[keys: string]: infer U} ? U : never
+export type InferActionsType<T extends {[keys: string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
+
 // for working Redux DevTools Google Chrome extension
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

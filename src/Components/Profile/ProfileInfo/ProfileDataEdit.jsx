@@ -1,12 +1,11 @@
-import style from "../Profile.module.css";
-import 'antd/dist/antd.css';
-import React from "react";
-import {Button, Form, Input, InputNumber, Select, message} from "antd";
-import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+import './ProfileDataEdit.css'
+import 'antd/dist/antd.css'
+import React from 'react'
+import {Button, Form, Input, InputNumber, Select, message} from 'antd'
 
 const { Option } = Select;
 
-const ProfileDataEdit = ({ handleSubmit, profile, error }) => {
+const ProfileDataEdit = ({ handleSubmit, profile, error, deactivateEditMode }) => {
 
     const layout = {
         labelCol: { span: 8 },
@@ -22,7 +21,7 @@ const ProfileDataEdit = ({ handleSubmit, profile, error }) => {
         number: {
             range: '${label} must be between ${min} and ${max}',
         },
-    };
+    }
 
     return (
         <Form {...layout} name="editProfile"
@@ -55,6 +54,10 @@ const ProfileDataEdit = ({ handleSubmit, profile, error }) => {
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                 <Button type="primary" htmlType="submit">
                     Submit
+                </Button>
+
+                <Button htmlType="button" onClick={deactivateEditMode}>
+                    Cancel
                 </Button>
             </Form.Item>
         </Form>

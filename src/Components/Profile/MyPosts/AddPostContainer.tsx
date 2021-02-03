@@ -1,28 +1,40 @@
 import React from 'react'
 import { addPost } from '../../../Redux/profile-reducer'
-import AddPost from './AddPost'
 import { connect } from 'react-redux'
-import { AppStateType } from '../../../Redux/redux-store'
-import { PostType } from '../../../types/types'
+import { Field, Form } from 'react-final-form'
+import style from './AddPostWall.module.css'
+import { TextArea } from '../../common/FormsControls/FormsControls'
+import { composeValidators, maxLength, minLength, required } from '../../../utils/validators/validators'
+import { Button } from 'antd'
 
-class AddPostContainer extends React.Component<MapDispatchToPropsType> {
-    render() {
-        return <AddPost addPost={this.props.addPost}/>
+const AddPostContainer: React.FC<MapDispatchToPropsType> = ({ addPost }) => {
+    let addNewPost = (formData: any) => {
+        addPost(formData.message)
     }
-}
 
-/*type MapStateToPropsType = {
-    posts: Array<PostType>
-}*/
+    return (
+        <Form onSubmit={addNewPost}
+              render={({handleSubmit, submitting, pristine}) => (
+                  <form className={style.AddPostArea} onSubmit={handleSubmit}>
+                      <Field name="message"
+                             component={TextArea as React.FC}
+                             validate={composeValidators(required, minLength(5), maxLength(200))}
+                             placeholder={"post here..."}>
+                      </Field>
+
+                      <Button type="primary"
+                              htmlType="submit"
+                              disabled={submitting || pristine}>Add post
+                      </Button>
+                  </form>
+              )
+              }
+        />
+    )
+}
 
 type MapDispatchToPropsType = {
     addPost: (formData: any) => void
 }
-
-/*const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-    return {
-        posts: state.profilePage.posts
-    }
-}*/
 
 export default connect(null, { addPost })(AddPostContainer)

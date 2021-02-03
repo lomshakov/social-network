@@ -2,6 +2,7 @@ import { authAPI, securityAPI, ResultCode } from '../api/api'
 import { AppStateType } from './redux-store'
 import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
+import {ValuesLoginType} from '../Components/Login/LoginForm'
 
 // string types
 const SET_USER_DATA = 'AUTH/SET_USER_DATA'
@@ -89,7 +90,8 @@ export const getAuthData = (): ThunkType => async (dispatch: DispatchType) => {
     }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean, captcha: null | string): ThunkType => async (dispatch: any) => {
+export const login = (values: ValuesLoginType): ThunkType => async (dispatch: any) => {
+    const {email, password, rememberMe, captcha} = values
     const data = await authAPI.login(email, password, rememberMe, captcha)
     if (data.resultCode === ResultCode.Success) {
         dispatch(getAuthData())

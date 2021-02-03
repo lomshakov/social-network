@@ -42,8 +42,8 @@ const ModalLogin: React.FC<MapStateToPropsType & MapDispatchToPropsType> = ({ is
 
 const LoginForm: React.FC<MapStateToPropsType & MapDispatchToPropsType> = ({ login, authError, captchaUrl }) => {
 
-    const onFinish = (values: any) => {
-        login(values.email, values.password, values.remember, values.captcha)
+    const onFinish = (values: ValuesLoginType) => {
+        login(values)
     }
 
     const onFinishFailed = (errorInfo: any) => {
@@ -96,6 +96,13 @@ const LoginForm: React.FC<MapStateToPropsType & MapDispatchToPropsType> = ({ log
     )
 }
 
+export type ValuesLoginType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: null | string
+}
+
 type MapStateToPropsType = {
     isAuth: boolean
     authError: string | null
@@ -103,7 +110,7 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    login: (email: string, password: string, rememberMe: boolean, captcha: null | string) => void
+    login: (values: ValuesLoginType) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
