@@ -1,27 +1,19 @@
-import {addMessage} from "../../Redux/dialogs-reducer";
-import Dialogs from "./Dialogs";
-import {connect} from "react-redux";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {compose} from "redux";
-import {withRouter} from "react-router-dom";
-import * as React from "react";
-import Preloader from "../common/Preloader/Preloader";
-import Users from "../Users/Users";
+import {actions} from '../../Redux/dialogs-reducer'
+import Dialogs from './Dialogs'
+import {connect} from 'react-redux'
+import {withAuthRedirect} from '../../hoc/withAuthRedirect'
+import {compose} from 'redux'
+import * as React from 'react'
+import Preloader from '../common/Preloader/Preloader'
 
 class DialogsContainer extends React.Component{
-
-    componentDidMount() {
-
-    };
-
-
     render() {
         return <>
             {this.props.isFetching
                 ? <Preloader />
                 : null}
             <Dialogs dialogsPage={this.props.dialogsPage}
-                     addMessage={this.props.addMessageActionCreator}
+                     addMessage={this.props.addMessage}
                      isAuth={this.props.isAuth}/>
         </>
     }
@@ -32,16 +24,10 @@ let mapStateToProps = (state) => {
         dialogsPage: state.dialogsPage,
         isAuth: state.auth.isAuth
     }
-};
-
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         addMessage: (message) => dispatch(addMessageActionCreator(message))
-//     }
-// };
+}
 
 export default compose(
-    connect(mapStateToProps, {addMessageActionCreator: addMessage}),
+    connect(mapStateToProps, {addMessage: actions.addMessage}),
     withAuthRedirect
 )(DialogsContainer);
 

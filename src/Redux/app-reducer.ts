@@ -1,10 +1,6 @@
 import { getAuthData } from './auth-reducer'
-import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./redux-store";
-import {Dispatch} from "redux";
-
-// string types
-const SET_INITIALIZED = 'APP/SET_INITIALIZED'
+import {AppStateType, BaseThunkType, InferActionsType} from './redux-store'
+import {Dispatch} from 'redux'
 
 // initial state
 let initialState = {
@@ -15,7 +11,7 @@ let initialState = {
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
     switch (action.type) {
-        case SET_INITIALIZED:
+        case 'APP/SET_INITIALIZED':
             return {
                 ...state,
                 initialized: true
@@ -27,26 +23,21 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 }
 
 type InitialStateType = typeof initialState
+type ActionsTypes = InferActionsType<typeof actions>
 
-// definition types for Action creators
-type SetInitializedActionType = {
-    type: typeof SET_INITIALIZED
+// actions
+const actions = {
+    setInitialized: () => ({ type: 'APP/SET_INITIALIZED' } as const)
 }
-
-// main actions type
-type ActionsTypes = SetInitializedActionType
-
-// action-creators
-export const setInitialized = (): SetInitializedActionType => ({ type: SET_INITIALIZED })
 
 // definition types for thunks-creators
 type DispatchType = Dispatch<ActionsTypes>
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+type ThunkType = BaseThunkType<ActionsTypes>
 
 // thunks
-export const initializeApp = (): ThunkType => async (dispatch: any) => {
+export const initializeApp = (): ThunkType => async (dispatch) => {
     await dispatch(getAuthData())
-    dispatch(setInitialized())
+    dispatch(actions.setInitialized())
 }
 
 export default appReducer

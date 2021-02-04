@@ -86,7 +86,7 @@ const LoginForm: React.FC<MapStateToPropsType & MapDispatchToPropsType> = ({ log
 
             <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit">
-                    Submit
+                    Login
                 </Button>
             </Form.Item>
 

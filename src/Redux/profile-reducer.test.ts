@@ -1,4 +1,4 @@
-import profileReducer, {addPost, deletePost} from "./profile-reducer";
+import profileReducer, {actions} from './profile-reducer'
 
 let state = {
     posts: [{id: 1, message: 'Hi to all!!!', likesCount: 15, date: '09.06.2019, 15:09:26'},
@@ -7,30 +7,31 @@ let state = {
         {id: 4, message: 'Fuck....uuu', likesCount: 11, date: '01.12.2020, 23:00:26'}
     ],
     profile: null,
-    status: ''
-};
+    status: '',
+    profileChangeError: ''
+}
 
 test('Message should added', () => {
-    let action = addPost("new message");
+    let action = actions.addPost("new message");
     expect(profileReducer(state, action).posts.length).toBe(5);
 })
 
 test('Message text should be correct', () => {
-    let action = addPost("new message");
+    let action = actions.addPost("new message");
     expect(profileReducer(state, action).posts[4].message).toBe("new message");
 })
 
 test('Likes count for a new message should be 0', () => {
-    let action = addPost("new message");
+    let action = actions.addPost("new message");
     expect(profileReducer(state, action).posts[4].likesCount).toBe(0);
 })
 
 test('Number of messages after delete should decrease', () => {
-    let action = deletePost(1);
+    let action = actions.deletePost(1);
     expect(profileReducer(state, action).posts.length).toBe(3);
 })
 
 test(`Number of messages don't decrease if ID of post is incorrect`, () => {
-    let action = deletePost(1000);
+    let action = actions.deletePost(1000);
     expect(profileReducer(state, action).posts.length).toBe(4);
 })

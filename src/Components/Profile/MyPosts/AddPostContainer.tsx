@@ -1,5 +1,5 @@
 import React from 'react'
-import { addPost } from '../../../Redux/profile-reducer'
+import { actions } from '../../../Redux/profile-reducer'
 import { connect } from 'react-redux'
 import { Field, Form } from 'react-final-form'
 import style from './AddPostWall.module.css'
@@ -37,4 +37,4 @@ type MapDispatchToPropsType = {
     addPost: (formData: any) => void
 }
 
-export default connect(null, { addPost })(AddPostContainer)
+export default connect(null, { addPost: actions.addPost })(AddPostContainer)
