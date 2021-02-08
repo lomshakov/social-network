@@ -5,6 +5,11 @@ import { PostType } from '../../../../types/types'
 import { Avatar, List, Space } from 'antd'
 import { FieldTimeOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons'
 
+type PropsType = {
+    posts: Array<PostType>
+    login: string | null
+}
+
 const IconText: React.FC<{ icon: any, text: any }> = ({ icon, text }) => {
     return (
         <Space>
@@ -14,7 +19,7 @@ const IconText: React.FC<{ icon: any, text: any }> = ({ icon, text }) => {
     )
 }
 
-const Posts: React.FC<MapStateToPropsType> = React.memo(({ login, posts }) => {
+const Posts: React.FC<PropsType> = React.memo(({ login, posts }) => {
     return (
         <List
             itemLayout="vertical"
@@ -50,18 +55,18 @@ const Posts: React.FC<MapStateToPropsType> = React.memo(({ login, posts }) => {
 })
 
 
-type MapStateToPropsType = {
-    posts: Array<PostType>
-    login: string | null
-}
+// type MapStateToPropsType = {
+//     posts: Array<PostType>
+//     login: string | null
+// }
+//
+// let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+//     return {
+//         posts: state.profilePage.posts,
+//         login: state.auth.login
+//     }
+// }
+//
+// let PostsContainer = connect(mapStateToProps, null)(Posts)
 
-let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-    return {
-        posts: state.profilePage.posts,
-        login: state.auth.login
-    }
-}
-
-let PostsContainer = connect(mapStateToProps, null)(Posts)
-
-export default PostsContainer
+export default Posts

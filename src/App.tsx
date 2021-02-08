@@ -1,19 +1,18 @@
 import React, {Suspense, lazy} from 'react'
 import 'antd/dist/antd.css'
+import './App.css'
+import {Layout, Menu} from 'antd'
+import {compose} from 'redux'
+import {connect, Provider} from 'react-redux'
+import {BrowserRouter, Link, Redirect, Route, withRouter, Switch} from 'react-router-dom'
 import Music from './Components/Music/Music'
 import Settings from './Components/Settings/Settings'
 import News from './Components/News/News'
-import {BrowserRouter, Link, Redirect, Route} from 'react-router-dom'
 import HeaderContainer from './Components/Header/HeaderContainer'
-import {Layout, Menu} from 'antd'
-import {withRouter, Switch} from 'react-router-dom'
-import {connect, Provider} from 'react-redux'
-import {compose} from 'redux'
 import {initializeApp} from './Redux/app-reducer'
 import Preloader from './Components/common/Preloader/Preloader'
-import './App.css'
 import LoginForm from './Components/Login/LoginForm'
-import store from './Redux/redux-store'
+import store, {AppStateType} from './Redux/redux-store'
 import ProfileContainerWithHooks from './Components/Profile/ProfileContainerWithHooks'
 import Error404 from './Components/common/Errors/404'
 
@@ -21,11 +20,24 @@ const DialogsContainer = lazy(() => import("./Components/Dialogs/DialogsContaine
 const UsersContainer = lazy(() => import("./Components/Users/UsersContainer"))
 const {Header, Content, Sider, Footer} = Layout
 
-class App extends React.Component {
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    initializeApp: () => void
+}
+
+class App extends React.Component<MapPropsType & DispatchPropsType> {
+
+    catchAllUnhandledErrors = (e: any) => {
+        alert('Some error occurred')
+    }
 
     componentDidMount() {
         this.props.initializeApp()
         window.addEventListener('unHandledRejection', this.catchAllUnhandledErrors)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('unHandledRejection', this.catchAllUnhandledErrors)
     }
 
     render() {
@@ -85,7 +97,7 @@ class App extends React.Component {
                                     <Switch>
                                         {/*<Route path='/profile/:userId?' component={ProfileContainer}/>*/}
                                         <Route exact path='/' children={ () => <Redirect to="/profile" /> }/>
-                                        <Route path='/profile/:userId?' component={ProfileContainerWithHooks}/>
+                                        <Route path='/profile/:userId?' component={ProfileContainerWithHooks as React.FC}/>
                                         <Route path='/dialogs' component={DialogsContainer}/>
                                         <Route path='/news' component={News}/>
                                         <Route path='/music' component={Music}/>
@@ -103,27 +115,27 @@ class App extends React.Component {
 
                 <Footer style={{textAlign: 'center'}}>2021 Created by Alexey Lomshakov</Footer>
             </Layout>
-        );
+        )
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
 })
 
-const AppContainer = compose(
+const AppContainer = compose<React.ComponentType>(
     connect(mapStateToProps, {initializeApp}),
     withRouter
 )(App)
 
-const MainApp = () => {
+const MainApp: React.FC = () => {
     return (
         <Provider store={store}>
             <BrowserRouter>
-                <AppContainer/>
+                <AppContainer />
             </BrowserRouter>
         </Provider>
     )
 }
 
-export default MainApp;
+export default MainApp

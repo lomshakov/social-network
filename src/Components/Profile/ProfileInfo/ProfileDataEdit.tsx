@@ -1,16 +1,23 @@
 import './ProfileDataEdit.css'
 import 'antd/dist/antd.css'
 import React from 'react'
-import {Button, Form, Input, InputNumber, Select, message} from 'antd'
+import {Button, Form, Input, Select} from 'antd'
+import {ProfileType} from '../../../types/types'
 
-const { Option } = Select;
+const { Option } = Select
 
-const ProfileDataEdit = ({ handleSubmit, profile, error, deactivateEditMode }) => {
+type PropsType = {
+    profile: ProfileType
+    handleSubmit: (values: ProfileType) => void
+    deactivateEditMode: () => void
+}
+
+const ProfileDataEdit: React.FC<PropsType> = ({ handleSubmit, profile, deactivateEditMode }) => {
 
     const layout = {
         labelCol: { span: 8 },
         wrapperCol: { span: 16 },
-    };
+    }
 
     const validateMessages = {
         required: '${label} is required!',
@@ -29,15 +36,13 @@ const ProfileDataEdit = ({ handleSubmit, profile, error, deactivateEditMode }) =
               validateMessages={validateMessages}
               initialValues={{ ...profile }}>
 
-            {/*{error && message.error(error)}*/}
-
             <Form.Item name="fullName" label="Name" rules={[{ required: true }]}>
                 <Input />
             </Form.Item>
             <Form.Item name="lookingForAJob" label="Looking for a job" rules={[{ required: true }]}>
                 <Select>
-                    <Option value={true}>Yes</Option>
-                    <Option value={false}>No</Option>
+                    <Option value={true as any}>Yes</Option>
+                    <Option value={false as any}>No</Option>
                 </Select>
             </Form.Item>
             <Form.Item name="lookingForAJobDescription" label="My skills" rules={[{ required: true }]}>

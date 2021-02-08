@@ -1,19 +1,22 @@
 import React from 'react'
-import { actions } from '../../../Redux/profile-reducer'
-import { connect } from 'react-redux'
-import { Field, Form } from 'react-final-form'
-import style from './AddPostWall.module.css'
-import { TextArea } from '../../common/FormsControls/FormsControls'
-import { composeValidators, maxLength, minLength, required } from '../../../utils/validators/validators'
-import { Button } from 'antd'
+import {Field, Form} from 'react-final-form'
+import style from './AddPost.module.css'
+import {TextArea} from '../../common/FormsControls/FormsControls'
+import {composeValidators, maxLength, minLength, required} from '../../../utils/validators/validators'
+import {Button} from 'antd'
 
-const AddPostContainer: React.FC<MapDispatchToPropsType> = ({ addPost }) => {
-    let addNewPost = (formData: any) => {
+type PropsType = {
+    addPost: (post: string) => void
+}
+
+const AddPost: React.FC<PropsType> = ({ addPost }) => {
+
+    let onFinish = (formData: any) => {
         addPost(formData.message)
     }
 
     return (
-        <Form onSubmit={addNewPost}
+        <Form onSubmit={onFinish}
               render={({handleSubmit, submitting, pristine}) => (
                   <form className={style.AddPostArea} onSubmit={handleSubmit}>
                       <Field name="message"
@@ -33,8 +36,4 @@ const AddPostContainer: React.FC<MapDispatchToPropsType> = ({ addPost }) => {
     )
 }
 
-type MapDispatchToPropsType = {
-    addPost: (formData: any) => void
-}
-
-export default connect(null, { addPost: actions.addPost })(AddPostContainer)
+export default AddPost

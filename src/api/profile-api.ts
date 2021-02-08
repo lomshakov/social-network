@@ -10,7 +10,7 @@ export const profileAPI = {
         return instance.get<ProfileType>(`profile/` + userID)
             .then(response => response.data)
     },
-    getStatus(userID: number) {
+    getStatus(userID: number | null) {
         return instance.get<string>('profile/status/' + userID)
             .then(response => response.data)
     },

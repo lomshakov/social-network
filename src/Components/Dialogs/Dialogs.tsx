@@ -1,22 +1,26 @@
+import React from 'react'
 import style from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
-import React from 'react'
 import { Field, Form } from 'react-final-form'
 import { TextArea } from '../common/FormsControls/FormsControls'
 import { composeValidators, maxLength, minLength, required } from '../../utils/validators/validators'
 import { Button } from 'antd'
+import {DialogType, MessageType} from '../../types/types'
 
-const Dialogs = (props) => {
+type DispatchType = {
+    addMessage: (formData: string) => void
+}
 
-    let dialogsData = props.dialogsPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id} key={dialog.id}/>);
-    let messagesData = props.dialogsPage.messages.map(message => <Message message={message.message} key={message.id}/>);
+type PropsType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+}
 
-    let addMessage = (formData) => {
-        props.addMessage(formData.message);
-    }
+const Dialogs: React.FC<PropsType & DispatchType> = ({ dialogs, messages, addMessage }) => {
 
-    // if (!props.isAuth) return <Redirect to="/login"/>
+    let dialogsData = dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id} key={dialog.id}/>)
+    let messagesData = messages.map(message => <Message message={message} />)
 
     return (
         <div className={style.dialogs}>
@@ -33,17 +37,21 @@ const Dialogs = (props) => {
 
         </div>
     )
-};
+}
 
-const MessageForm = (props) => {
+const MessageForm: React.FC<DispatchType> = ({ addMessage }) => {
+
+    const onFinish = (formData: any) => {
+        addMessage(formData.message)
+    }
 
     return (
-        <Form onSubmit={props.addMessage}
+        <Form onSubmit={onFinish}
               render={({handleSubmit, submitting, pristine}) => (
                   <form onSubmit={handleSubmit} className={style.submitRow}>
 
                       <Field name="message"
-                             component={TextArea}
+                             component={TextArea as React.FC}
                              validate={composeValidators(required, minLength(5), maxLength(200))}
                              placeholder={"message here..."}>
                       </Field>
@@ -59,5 +67,5 @@ const MessageForm = (props) => {
     )
 }
 
-export default Dialogs;
+export default Dialogs
 

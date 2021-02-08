@@ -18,9 +18,9 @@ let rootReducer = combineReducers({
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
-type PropertiesTypes<T> = T extends {[keys: string]: infer U} ? U : never
-export type InferActionsType<T extends {[keys: string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
-
+// type PropertiesTypes<T> = T extends {[keys: string]: infer U} ? U : never
+//export type InferActionsType<T extends {[keys: string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
+export type InferActionsType<T> = T extends { [keys:string]: (...args: any[]) => infer U } ? U : never
 export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 // for working Redux DevTools Google Chrome extension
