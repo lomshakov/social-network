@@ -7,14 +7,14 @@ import {
     actions,
     follow,
     unfollow,
-    requestUsers
+    requestUsers, SearchFilterType
 } from '../../Redux/users-reducer'
 import {withAuthRedirect} from '../../hoc/withAuthRedirect'
 import {
     getCurrentPage,
     getFollowingInProgress,
     getIsFetching,
-    getPageSize,
+    getPageSize, getSearchFilter,
     getTotalUsersCount,
     getUsersSelector
 } from '../../Redux/users-selectors'
@@ -30,12 +30,13 @@ type MapStateToPropsType = {
     isFetching: boolean
     users: Array<UsersType>
     followingInProgress: Array<number>
+    filter: SearchFilterType
 }
 
 type MapDispatchToPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    requestUsers: (currentPage: number, pageSize: number) => void
+    requestUsers: (currentPage: number, pageSize: number, filter: SearchFilterType) => void
     onPageChanged: (pageNumber: number, pageSize?: number) => void
     setPageSize: (pageSize: number) => void
     setCurrentPage: (pageNumber: number) => void
@@ -44,13 +45,17 @@ type MapDispatchToPropsType = {
 class UsersContainer extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
 
     componentDidMount() {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize)
+        console.log(this.props)
+        debugger
+        const {currentPage, pageSize, filter} = this.props
+        this.props.requestUsers(currentPage, pageSize, filter)
     }
 
     onPageChanged = (pageNumber: number, pageSize?: number) => {
         if (pageSize != null) {
             this.props.setPageSize(pageSize)
-            this.props.requestUsers(pageNumber, pageSize)
+            const {filter} = this.props
+            this.props.requestUsers(pageNumber, pageSize, filter)
         }
         this.props.setCurrentPage(pageNumber)
     }
@@ -58,6 +63,12 @@ class UsersContainer extends React.Component<MapStateToPropsType & MapDispatchTo
     setPageSize = (current: number, size: number) => {
         this.props.setCurrentPage(current)
         this.props.setPageSize(size)
+    }
+
+    onSearchFilterChanged = (filter: SearchFilterType) => {
+
+        const {pageSize} = this.props
+        this.props.requestUsers(1, pageSize, filter)
     }
 
     render() {
@@ -72,6 +83,7 @@ class UsersContainer extends React.Component<MapStateToPropsType & MapDispatchTo
                follow={this.props.follow}
                unfollow={this.props.unfollow}
                followingInProgress={this.props.followingInProgress}
+               onSearchFilterChanged={this.onSearchFilterChanged}
                setPageSize={this.setPageSize}/>
         </>
     }
@@ -84,7 +96,8 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
-        followingInProgress: getFollowingInProgress(state)
+        followingInProgress: getFollowingInProgress(state),
+        filter: getSearchFilter(state)
     }
 }
 

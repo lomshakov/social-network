@@ -4,6 +4,7 @@ import 'antd/dist/antd.css'
 import userPhoto from '../../assets/images/user.png'
 import {NavLink} from 'react-router-dom'
 import {UsersType} from '../../types/types'
+import {Button} from "antd";
 
 type PropsType = {
     followingInProgress: Array<number>
@@ -27,7 +28,16 @@ let User: React.FC<PropsType> = ({ followingInProgress,
                 </div>
                 <div>
 
-                    {user.followed
+                    { user.followed ? <Button danger
+                                              disabled={followingInProgress.some(id => id === user.id)}
+                                              onClick={() => unfollow(user.id)}
+                                      >Unfollow</Button>
+                                    : <Button type="primary"
+                                             disabled={followingInProgress.some(id => id === user.id)}
+                                             onClick={() => follow(user.id)}
+                                     >Follow</Button> }
+
+                    {/*{user.followed
                         ? <button disabled={followingInProgress.some(id => id === user.id)}
                                   className={style.buttonUnfollow}
                                   onClick={() => unfollow(user.id)}>Unfollow</button>
@@ -36,7 +46,7 @@ let User: React.FC<PropsType> = ({ followingInProgress,
                                   onClick={() => {
                                       follow(user.id)
                                   }}>Follow</button>
-                    }
+                    }*/}
                 </div>
             </div>
             <div className={style.usersInfo}>
@@ -49,4 +59,4 @@ let User: React.FC<PropsType> = ({ followingInProgress,
     )
 }
 
-export default User;
+export default User
