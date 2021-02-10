@@ -8,7 +8,7 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect'
 import {AppStateType} from '../../Redux/redux-store'
 import {ProfileType} from '../../types/types'
 
-const ProfileContainerWithHooks: React.FC<MapStateToPropsType & MapDispatchToPropsType & RouteComponentProps<PathParamsType>> = ({
+const ProfileContainer: React.FC<MapStateToPropsType & MapDispatchToPropsType & RouteComponentProps<PathParamsType>> = ({
                                         profile, authorizedUserId, getProfileData,
                                         getUserStatus, status, updateStatus, isAuth,
                                         savePhoto, saveProfile, error, login, posts, addPost, ...props }) => {
@@ -77,4 +77,4 @@ export default compose(
     connect(mapStateToProps, {getProfileData, getUserStatus, updateStatus, savePhoto, saveProfile, addPost: actions.addPost}),
     withRouter,
     withAuthRedirect
-)(ProfileContainerWithHooks)
+)(ProfileContainer)

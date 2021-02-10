@@ -1,8 +1,8 @@
-.usersPage {
-    display: grid;
-    grid-template-rows: auto;
 
-    gap: 10px;
+
+.search__form {
+    display: grid;
+    grid-template-columns: 5fr 3fr 3fr;
 }
 
 .users {

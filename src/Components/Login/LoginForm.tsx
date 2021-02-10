@@ -1,49 +1,28 @@
-import 'antd/dist/antd.css'
-import React, { useState } from 'react'
-import { Form, Input, Button, Checkbox, Alert, Modal } from 'antd'
-import { Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { login } from '../../Redux/auth-reducer'
-import Captcha from './Captcha'
-import { AppStateType } from '../../Redux/redux-store'
+import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {AppStateType} from '../../Redux/redux-store'
+import {login} from '../../Redux/auth-reducer'
+import {Alert, Button, Checkbox, Form, Input} from 'antd'
+import {Captcha} from './Captcha'
 
 const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
+    labelCol: {span: 8},
+    wrapperCol: {span: 16}
 }
 
 const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 }
+    wrapperCol: {offset: 8, span: 16}
 }
 
-const ModalLogin: React.FC<MapStateToPropsType & MapDispatchToPropsType> = ({ isAuth, login, authError, captchaUrl }) => {
+export const LoginForm: React.FC = () => {
 
-    const [visible, setVisible] = useState(true)
+    const authError = useSelector((state: AppStateType) => state.auth.authError)
+    const captchaUrl = useSelector((state: AppStateType) => state.auth.captchaUrl)
 
-    const handleCancel = () => {
-        setVisible(false)
-    }
-
-    if (isAuth) {
-        return <Redirect to={"/profile"}/>
-    }
-
-    return (
-        <Modal
-            title="Login"
-            visible={visible}
-            onCancel={handleCancel}
-            footer={null}
-        >
-            <LoginForm login={login} authError={authError} captchaUrl={captchaUrl} isAuth={isAuth}/>
-        </Modal>
-    )
-}
-
-const LoginForm: React.FC<MapStateToPropsType & MapDispatchToPropsType> = ({ login, authError, captchaUrl }) => {
+    const dispatch = useDispatch()
 
     const onFinish = (values: ValuesLoginType) => {
-        login(values)
+        dispatch(login(values))
     }
 
     const onFinishFailed = (errorInfo: any) => {
@@ -54,30 +33,30 @@ const LoginForm: React.FC<MapStateToPropsType & MapDispatchToPropsType> = ({ log
         <Form
             {...layout}
             name="basic"
-            initialValues={{ remember: true }}
+            initialValues={{remember: true}}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
         >
 
-            {authError && <Alert style={{ marginBottom: "30px" }}
-                                       message={"Error: " + `${authError}`}
-                                       type="error"
-                                       showIcon />}
+            {authError && <Alert style={{marginBottom: "30px"}}
+                                 message={"Error: " + `${authError}`}
+                                 type="error"
+                                 showIcon/>}
 
             <Form.Item
                 label="Email"
                 name="email"
-                rules={[{ required: true, message: 'Please input your username!' }]}
+                rules={[{required: true, message: 'Please input your username!'}]}
             >
-                <Input />
+                <Input/>
             </Form.Item>
 
             <Form.Item
                 label="Password"
                 name="password"
-                rules={[{ required: true, message: 'Please input your password!' }]}
+                rules={[{required: true, message: 'Please input your password!'}]}
             >
-                <Input.Password />
+                <Input.Password/>
             </Form.Item>
 
             <Form.Item {...tailLayout} name="remember" valuePropName="checked">
@@ -90,7 +69,7 @@ const LoginForm: React.FC<MapStateToPropsType & MapDispatchToPropsType> = ({ log
                 </Button>
             </Form.Item>
 
-            { captchaUrl && <Captcha captchaUrl={captchaUrl} /> }
+            {captchaUrl && <Captcha captchaUrl={captchaUrl}/>}
 
         </Form>
     )
@@ -102,21 +81,3 @@ export type ValuesLoginType = {
     rememberMe: boolean
     captcha: null | string
 }
-
-type MapStateToPropsType = {
-    isAuth: boolean
-    authError: string | null
-    captchaUrl: string | null
-}
-
-type MapDispatchToPropsType = {
-    login: (values: ValuesLoginType) => void
-}
-
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
-    isAuth: state.auth.isAuth,
-    authError: state.auth.authError,
-    captchaUrl: state.auth.captchaUrl
-})
-
-export default connect(mapStateToProps, { login })(ModalLogin)

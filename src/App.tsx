@@ -11,13 +11,13 @@ import News from './Components/News/News'
 import HeaderContainer from './Components/Header/HeaderContainer'
 import {initializeApp} from './Redux/app-reducer'
 import Preloader from './Components/common/Preloader/Preloader'
-import LoginForm from './Components/Login/LoginForm'
+import {LoginPage} from './Components/Login/LoginPage'
 import store, {AppStateType} from './Redux/redux-store'
-import ProfileContainerWithHooks from './Components/Profile/ProfileContainerWithHooks'
+import ProfileContainer from './Components/Profile/ProfileContainer'
 import Error404 from './Components/common/Errors/404'
 
 const DialogsContainer = lazy(() => import("./Components/Dialogs/DialogsContainer"))
-const UsersContainer = lazy(() => import("./Components/Users/UsersContainer"))
+const UsersPage = lazy(() => import("./Components/Users/UsersPage"))
 const {Header, Content, Sider, Footer} = Layout
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -97,13 +97,13 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                                     <Switch>
                                         {/*<Route path='/profile/:userId?' component={ProfileContainer}/>*/}
                                         <Route exact path='/' children={ () => <Redirect to="/profile" /> }/>
-                                        <Route path='/profile/:userId?' component={ProfileContainerWithHooks as React.FC}/>
+                                        <Route path='/profile/:userId?' component={ProfileContainer as React.FC}/>
                                         <Route path='/dialogs' component={DialogsContainer}/>
                                         <Route path='/news' component={News}/>
                                         <Route path='/music' component={Music}/>
                                         <Route path='/settings' component={Settings}/>
-                                        <Route path='/users' component={UsersContainer}/>
-                                        <Route path='/login' component={LoginForm}/>
+                                        <Route path='/users' component={UsersPage}/>
+                                        <Route path='/login' component={LoginPage}/>
                                         <Route path='*' component={Error404}/>
                                     </Switch>
                                 </Suspense>

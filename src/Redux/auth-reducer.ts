@@ -1,8 +1,7 @@
-import { ResultCode } from '../api/api'
-import { authAPI } from '../api/auth-api'
-import { securityAPI } from '../api/security-api'
-import {AppStateType, BaseThunkType, InferActionsType} from './redux-store'
-import { Dispatch } from 'redux'
+import {ResultCode} from '../api/api'
+import {authAPI} from '../api/auth-api'
+import {securityAPI} from '../api/security-api'
+import {BaseThunkType, InferActionsType} from './redux-store'
 import {ValuesLoginType} from '../Components/Login/LoginForm'
 
 // initial state

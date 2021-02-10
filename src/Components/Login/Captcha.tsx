@@ -6,7 +6,7 @@ type PropsType = {
     captchaUrl: string
 }
 
-const Captcha: React.FC<PropsType> = ({ captchaUrl }) => {
+export const Captcha: React.FC<PropsType> = ({ captchaUrl }) => {
     return (
         <div>
             <Form.Item label="Captcha:">
@@ -20,5 +20,3 @@ const Captcha: React.FC<PropsType> = ({ captchaUrl }) => {
         </div>
     )
 }
-
-export default Captcha

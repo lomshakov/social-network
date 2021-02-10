@@ -3,7 +3,7 @@ import 'antd/dist/antd.css'
 import './../../App.css'
 import { Link } from 'react-router-dom'
 import { Avatar, Button, Col, Row, Typography } from 'antd'
-import { UserOutlined } from '@ant-design/icons'
+import {PoweroffOutlined, UserOutlined} from '@ant-design/icons'
 import { connect } from 'react-redux'
 import { logout } from '../../Redux/auth-reducer'
 import { AppStateType } from '../../Redux/redux-store'
@@ -24,7 +24,7 @@ const Header: React.FC<PropsType> = ({ isAuth, login, logout }) => {
             </Col>
 
             <Col span={14}>
-                <Text style={{color: 'white', fontSize: 30}}>React developers social network
+                <Text style={{color: 'white', fontSize: 25}}>React developers social network
                 </Text>
             </Col>
 
@@ -37,7 +37,7 @@ const Header: React.FC<PropsType> = ({ isAuth, login, logout }) => {
                             {login}
                         </Text>
 
-                        <Button onClick={logout}>Logout</Button>
+                        <Button icon={<PoweroffOutlined />} onClick={logout}>Logout</Button>
                     </div> }
             </Col>
         </Row>
