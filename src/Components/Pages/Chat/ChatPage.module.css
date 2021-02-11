@@ -1,0 +1,28 @@
+.chat__wrapper {
+    height: 500px;
+    overflow-y: auto;
+}
+
+.message__form {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+
+    margin-top: 20px;
+}
+
+.message__form Button {
+    width: 100px;
+    justify-self: center
+}
+
+.message {
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+
+    margin: 20px 0;
+}
+
+.author__avatar {
+    width: 40px;
+    height: 40px;
+}

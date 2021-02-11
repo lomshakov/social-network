@@ -2,11 +2,9 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import Preloader from '../common/Preloader/Preloader'
 import {getIsFetching} from '../../Redux/users-selectors'
-import {Users} from "./Users"
+import {Users} from './Users'
 
-type UsersPagePropsType = {}
-
-export const UsersPage: React.FC<UsersPagePropsType> = () => {
+const UsersPage: React.FC = () => {
 
     const isFetching = useSelector(getIsFetching)
 

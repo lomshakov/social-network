@@ -1,9 +1,9 @@
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {AppStateType} from '../../Redux/redux-store'
 import {login} from '../../Redux/auth-reducer'
 import {Alert, Button, Checkbox, Form, Input} from 'antd'
 import {Captcha} from './Captcha'
+import {getAuthError, getCaptchaUrl} from '../../Redux/auth-selectors'
 
 const layout = {
     labelCol: {span: 8},
@@ -16,8 +16,8 @@ const tailLayout = {
 
 export const LoginForm: React.FC = () => {
 
-    const authError = useSelector((state: AppStateType) => state.auth.authError)
-    const captchaUrl = useSelector((state: AppStateType) => state.auth.captchaUrl)
+    const authError = useSelector(getAuthError)
+    const captchaUrl = useSelector(getCaptchaUrl)
 
     const dispatch = useDispatch()
 

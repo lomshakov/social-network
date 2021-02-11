@@ -1,33 +1,32 @@
-import React, {Suspense, lazy} from 'react'
+import React, {lazy, Suspense, useEffect} from 'react'
 import 'antd/dist/antd.css'
 import './App.css'
-import {Layout, Menu} from 'antd'
+import {Layout} from 'antd'
 import {compose} from 'redux'
-import {connect, Provider} from 'react-redux'
-import {BrowserRouter, Link, Redirect, Route, withRouter, Switch} from 'react-router-dom'
+import {Provider, useDispatch, useSelector} from 'react-redux'
+import {BrowserRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom'
 import Music from './Components/Music/Music'
 import Settings from './Components/Settings/Settings'
 import News from './Components/News/News'
-import HeaderContainer from './Components/Header/HeaderContainer'
+import {MainHeader} from './Components/Header/MainHeader'
 import {initializeApp} from './Redux/app-reducer'
 import Preloader from './Components/common/Preloader/Preloader'
 import {LoginPage} from './Components/Login/LoginPage'
-import store, {AppStateType} from './Redux/redux-store'
+import store from './Redux/redux-store'
 import ProfileContainer from './Components/Profile/ProfileContainer'
 import Error404 from './Components/common/Errors/404'
+import {SiderMenu} from './Components/SiderMenu/SiderMenu'
+import {getInitialized} from './Redux/app-selectors'
 
 const DialogsContainer = lazy(() => import("./Components/Dialogs/DialogsContainer"))
-const UsersPage = lazy(() => import("./Components/Users/UsersPage"))
-const {Header, Content, Sider, Footer} = Layout
+const UsersPage: any = lazy(() => import("./Components/Users/UsersPage"))
+const ChatPage2 = lazy(() => import("./Components/Pages/Chat/ChatPage2"))
 
-type MapPropsType = ReturnType<typeof mapStateToProps>
-type DispatchPropsType = {
-    initializeApp: () => void
-}
+const {Header, Content, Footer} = Layout
 
-class App extends React.Component<MapPropsType & DispatchPropsType> {
+const App: React.FC = () => {
 
-    catchAllUnhandledErrors = (e: any) => {
+    /*catchAllUnhandledErrors = (e: any) => {
         alert('Some error occurred')
     }
 
@@ -38,50 +37,25 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
 
     componentWillUnmount() {
         window.removeEventListener('unHandledRejection', this.catchAllUnhandledErrors)
-    }
+    }*/
 
-    render() {
+    const initialized = useSelector(getInitialized)
+    const dispatch = useDispatch()
 
-        if (!this.props.initialized)
-            return <Preloader/>
+    useEffect(() => {
+        dispatch(initializeApp())
+    }, [])
 
+    if (!initialized)
+        return <Preloader/>
+    else
         return (
             <Layout className="container">
                 <Header>
-                    <HeaderContainer />
+                    <MainHeader/>
                 </Header>
                 <Layout>
-                    <Sider width={200} className="site-layout-background">
-                        <Menu
-                            mode="inline"
-                            defaultSelectedKeys={['1']}
-                            style={{height: '100%', borderRight: 0}}>
-
-                            <Menu.Item key="1">
-                                <Link to='/profile'>My profile</Link>
-                            </Menu.Item>
-
-                            <Menu.Item key="2">
-                                <Link to='/dialogs'>Messages</Link>
-                            </Menu.Item>
-
-                            <Menu.Item key="3">
-                                <Link to='/news'>News</Link>
-                            </Menu.Item>
-
-                            <Menu.Item key="4">
-                                <Link to='/music'>Music</Link>
-                            </Menu.Item>
-
-                            <Menu.Item key="5">
-                                <Link to='/settings'>Settings</Link>
-                            </Menu.Item>
-
-                            <Menu.Item key="6">
-                                <Link to='/users'>Developers</Link>
-                            </Menu.Item>
-                        </Menu>
-                    </Sider>
+                    <SiderMenu/>
                     <Layout style={{padding: '0 24px 24px'}}>
                         <Content
                             className="site-layout-background"
@@ -93,10 +67,9 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                         >
 
                             <div>
-                                <Suspense fallback={<div>Загрузка...</div>}>
+                                <Suspense fallback={<div>Loading...</div>}>
                                     <Switch>
-                                        {/*<Route path='/profile/:userId?' component={ProfileContainer}/>*/}
-                                        <Route exact path='/' children={ () => <Redirect to="/profile" /> }/>
+                                        <Route exact path='/' children={() => <Redirect to="/profile"/>}/>
                                         <Route path='/profile/:userId?' component={ProfileContainer as React.FC}/>
                                         <Route path='/dialogs' component={DialogsContainer}/>
                                         <Route path='/news' component={News}/>
@@ -104,6 +77,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                                         <Route path='/settings' component={Settings}/>
                                         <Route path='/users' component={UsersPage}/>
                                         <Route path='/login' component={LoginPage}/>
+                                        <Route path='/chat' component={ChatPage2}/>
                                         <Route path='*' component={Error404}/>
                                     </Switch>
                                 </Suspense>
@@ -116,26 +90,16 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                 <Footer style={{textAlign: 'center'}}>2021 Created by Alexey Lomshakov</Footer>
             </Layout>
         )
-    }
 }
 
-const mapStateToProps = (state: AppStateType) => ({
-    initialized: state.app.initialized
-})
+const AppContainer = compose<React.ComponentType>(withRouter)(App)
 
-const AppContainer = compose<React.ComponentType>(
-    connect(mapStateToProps, {initializeApp}),
-    withRouter
-)(App)
-
-const MainApp: React.FC = () => {
+export const MainApp: React.FC = () => {
     return (
         <Provider store={store}>
             <BrowserRouter>
-                <AppContainer />
+                <AppContainer/>
             </BrowserRouter>
         </Provider>
     )
 }
-
-export default MainApp
