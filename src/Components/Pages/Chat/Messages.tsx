@@ -1,19 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import styles from './ChatPage.module.css'
-import {ChatMessageType, wsChannel} from './ChatPage'
+import {useSelector} from 'react-redux'
+import {AppStateType} from '../../../Redux/redux-store'
+import {ChatMessageType} from '../../../api/chat-api'
 
 export const Messages: React.FC = () => {
-    debugger
 
-    const [messages, setMessages] = useState<ChatMessageType[]>([])
-
-    useEffect(() => {
-        wsChannel.addEventListener('message', (e) => {
-            // console.log(e)
-            let newMessages = JSON.parse(e.data)
-            setMessages(prevMessages => [...prevMessages, ...newMessages])
-        })
-    }, [messages])
+    const messages = useSelector((state: AppStateType) => state.chat.messages)
 
     return (
         <div className={styles.chat__wrapper}>

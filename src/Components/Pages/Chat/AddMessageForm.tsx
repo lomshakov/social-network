@@ -1,29 +1,30 @@
 import React from 'react'
 import styles from './ChatPage.module.css'
-import {Button, Input} from 'antd'
+import {Button} from 'antd'
 import {Field, Form, Formik} from 'formik'
-import {AntInput} from "../../common/FormsControls/CreateAntFields";
-import {SearchOutlined, SendOutlined} from "@ant-design/icons";
-import {wsChannel} from "./ChatPage";
-
-type PropsType = {
-    addMessage: (message: string) => void
-}
+import {AntInput} from '../../common/FormsControls/CreateAntFields'
+import {SendOutlined} from '@ant-design/icons'
+import {useDispatch} from 'react-redux'
+import {sendMessage} from '../../../Redux/chat-reducer'
 
 type ValuesType = {
     message: string
 }
 
-export const AddMessageForm: React.FC<PropsType> = ({addMessage}) => {
+export const AddMessageForm: React.FC = () => {
+
+    // const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
+    const dispatch = useDispatch()
+    const onSubmit = (values: ValuesType, {resetForm}: any) => {
+        dispatch(sendMessage(values.message))
+        resetForm()
+    }
 
     return (
         <div>
             <Formik enableReinitialize
                     initialValues={{message: ''}}
-                    onSubmit={(values: ValuesType, {resetForm}) => {
-                        addMessage(values.message)
-                        resetForm()
-                    }}>
+                    onSubmit={onSubmit}>
 
                 <Form className={styles.message__form}>
                     <Field
@@ -35,8 +36,7 @@ export const AddMessageForm: React.FC<PropsType> = ({addMessage}) => {
                     <Button htmlType="submit"
                             type="primary"
                             icon={<SendOutlined/>}
-                            disabled={wsChannel.readyState !== wsChannel.OPEN}
-
+                        /*disabled={wsChannel === null || readyStatus !== 'ready'}*/
                     >
                         Send
                     </Button>

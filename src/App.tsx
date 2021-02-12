@@ -20,7 +20,7 @@ import {getInitialized} from './Redux/app-selectors'
 
 const DialogsContainer = lazy(() => import("./Components/Dialogs/DialogsContainer"))
 const UsersPage: any = lazy(() => import("./Components/Users/UsersPage"))
-const ChatPage2 = lazy(() => import("./Components/Pages/Chat/ChatPage2"))
+const ChatPage = lazy(() => import("./Components/Pages/Chat/ChatPage"))
 
 const {Header, Content, Footer} = Layout
 
@@ -77,7 +77,7 @@ const App: React.FC = () => {
                                         <Route path='/settings' component={Settings}/>
                                         <Route path='/users' component={UsersPage}/>
                                         <Route path='/login' component={LoginPage}/>
-                                        <Route path='/chat' component={ChatPage2}/>
+                                        <Route path='/chat' component={ChatPage}/>
                                         <Route path='*' component={Error404}/>
                                     </Switch>
                                 </Suspense>

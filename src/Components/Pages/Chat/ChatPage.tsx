@@ -1,16 +1,8 @@
 import React, {useEffect} from 'react'
-import styles from './ChatPage.module.css'
 import {Messages} from './Messages'
 import {AddMessageForm} from './AddMessageForm'
-
-export const wsChannel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-
-export type ChatMessageType = {
-    message: string,
-    photo: string,
-    userId: number,
-    userName: string
-}
+import {useDispatch} from 'react-redux'
+import {startChat, stopChat} from '../../../Redux/chat-reducer'
 
 const ChatPage = () => {
     return (
@@ -22,14 +14,19 @@ const ChatPage = () => {
 
 const Chat = () => {
 
-    const addMessage = (message: string) => {
-        wsChannel.send(message)
-    }
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(startChat())
+        return () => {
+            dispatch(stopChat())
+        }
+    }, [])
+
 
     return (
         <div>
             <Messages/>
-            <AddMessageForm addMessage={addMessage}/>
+            <AddMessageForm/>
         </div>
     )
 }
