@@ -34,7 +34,7 @@ export const UserSearchForm: React.FC<PropsType> = ({ onSearchFilterChanged }) =
         }
 
         onSearchFilterChanged(filter)
-        console.log(values)
+        // console.log(values)
     }
 
     return (
@@ -50,7 +50,7 @@ export const UserSearchForm: React.FC<PropsType> = ({ onSearchFilterChanged }) =
                 <Form className={style.search__form}>
                     <Field
                         component={AntInput}
-                        placeholder='Search your friends'
+                        placeholder='Search...'
                         name="term"
                         type="text"
                     />

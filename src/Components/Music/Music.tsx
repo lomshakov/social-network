@@ -1,12 +1,11 @@
 import React from 'react'
 
-const Music: React.FC<any> = (props) => {
+export const Music: React.FC<any> = (props) => {
     return (
         <div>
-            Music Page
+            <h2>Music Page</h2>
         </div>
     )
 }
 
-export default Music;
 

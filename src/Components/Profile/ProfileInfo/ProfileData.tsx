@@ -1,36 +1,47 @@
 import React from 'react'
-import style from '../Profile.module.css'
+import styles from '../Profile.module.css'
 import {Button} from 'antd'
 import {ProfileStatus} from './ProfileStatus'
 import {ContactsType, ProfileType} from '../../../types/types'
 
 type ProfileDataPropsType = {
     profile: ProfileType
-    activateEditMode: () => void
-    isOwner: boolean
 }
 
-export const ProfileData: React.FC<ProfileDataPropsType> = ({ profile, isOwner, activateEditMode }) => {
+export const ProfileData: React.FC<ProfileDataPropsType> = ({ profile }) => {
 
     return (
-        <div className={style.profileDescription}>
+        <div className={styles.profileDescription}>
 
-            {isOwner && <Button type='default' onClick={activateEditMode}>Edit</Button>}
-            <h3 className={style.name}>{profile?.fullName}</h3>
+            {/*{isOwner && <Button type='default' onClick={activateEditMode}>Edit</Button>}*/}
+            <h2 className={styles.name}>{profile?.fullName}</h2>
 
             <ProfileStatus />
 
-            <div>Looking for a job: {profile.lookingForAJob ? "yes" : "no"}</div>
-            {profile.lookingForAJob && <div>My skills: {profile.lookingForAJobDescription}</div>}
-            <div>About me: {profile.aboutMe}</div>
-            <div>
-                Contacts:
+            <div className={styles.profile__data}>
+                <div>
+                    <span className={styles.profile__data__title}>Looking for a job: </span>
+                    {profile.lookingForAJob ? "yes" : "no"}
+                </div>
+                <div>
+                    <span className={styles.profile__data__title}>My skills: </span>
+                    {profile.lookingForAJobDescription}
+                </div>
+                <div>
+                    <span className={styles.profile__data__title}>About me: </span>
+                    {profile.aboutMe}
+                </div>
 
-                {Object.keys(profile.contacts).map(key => {
-                    return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]}/>
-                })}
+                <div>
+                    <div className={styles.contacts__title}>Contacts:</div>
 
+                    {Object.keys(profile.contacts).map(key => {
+                        return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]}/>
+                    })}
+
+                </div>
             </div>
+
         </div>
     )
 }

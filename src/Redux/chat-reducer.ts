@@ -21,7 +21,7 @@ const chatReducer = (state = initialState, action: ActionsTypes): InitialStateTy
         case 'CHAT/MESSAGES_RECEIVED':
             return {
                 ...state,
-                messages: [...action.payload.messages.map( m => ({...m, id: uuidv4()}) )]
+                messages: [...state.messages, ...action.payload.messages.map( m => ({...m, id: uuidv4()}) )]
             }
         case 'CHAT/STATUS_CHANGED':
             return {

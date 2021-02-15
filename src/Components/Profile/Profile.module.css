@@ -19,7 +19,27 @@
 
 .name {
     align-self: center;
-    justify-self: center;
+    justify-self: end;
+}
+
+.status {
+    justify-self: end;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.profile__data {
+    margin-top: 20px;
+    line-height: 25px;
+}
+
+.profile__data__title {
+    font-weight: 600;
+}
+
+.contacts__title {
+    margin-top: 10px;
+    font-weight: 600;
 }
 
 .friendsCount {

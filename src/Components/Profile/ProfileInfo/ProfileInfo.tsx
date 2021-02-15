@@ -17,9 +17,9 @@ type PropsType = {
 
 export const ProfileInfo: React.FC<PropsType> = React.memo(({ isOwner }) => {
 
-    let [editMode, setEditMode] = useState(false)
+    // let [editMode, setEditMode] = useState(false)
     const profile = useSelector(getProfileSelector)
-    const error = useSelector(getErrorSelector)
+    // const error = useSelector(getErrorSelector)
     const dispatch = useDispatch()
 
     if (!profile) {
@@ -32,21 +32,24 @@ export const ProfileInfo: React.FC<PropsType> = React.memo(({ isOwner }) => {
         }
     }
 
-    const submitProfileData = async (values: ProfileType) => {
-        await dispatch(saveProfile(values))
-        setEditMode(false)
-        if (error !== '') message.error(error)
-    }
+    // const submitProfileData = async (values: ProfileType) => {
+    //     await dispatch(saveProfile(values))
+    //     setEditMode(false)
+    //     if (error !== '') message.error(error)
+    // }
 
     return (
         <div className={style.profileInfo}>
             <div className={style.avatar}>
                 <img src={profile.photos.large || userPhoto} alt='Profile Photo'/>
-                {isOwner && <Input type={'file'} onChange={onChange}/>}
+                {/*{isOwner && <Input type={'file'} onChange={onChange}/>}*/}
             </div>
-            {editMode ? <ProfileDataEdit profile={profile} handleSubmit={submitProfileData}
+
+            <ProfileData profile={profile}/>
+
+            {/*{editMode ? <ProfileDataEdit profile={profile} handleSubmit={submitProfileData}
                                          deactivateEditMode={() => setEditMode(false)}/>
-                      : <ProfileData profile={profile} isOwner={isOwner} activateEditMode={() => setEditMode(true)}/>}
+                      : <ProfileData profile={profile} isOwner={isOwner} activateEditMode={() => setEditMode(true)}/>}*/}
 
         </div>
     )

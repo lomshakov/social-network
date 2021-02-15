@@ -2,8 +2,8 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {Avatar, List, Space} from 'antd'
 import {FieldTimeOutlined, LikeOutlined, StarOutlined} from '@ant-design/icons'
-import {getLoginSelector} from '../../../../Redux/auth-selectors'
-import {getPostsSelector} from '../../../../Redux/profile-selectors'
+import {getLoginSelector} from '../../../Redux/auth-selectors'
+import {getPostsSelector} from '../../../Redux/profile-selectors'
 
 const IconText: React.FC<{ icon: any, text: any }> = ({ icon, text }) => {
     return (

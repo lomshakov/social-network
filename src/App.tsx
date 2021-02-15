@@ -5,7 +5,7 @@ import {Layout} from 'antd'
 import {compose} from 'redux'
 import {Provider, useDispatch, useSelector} from 'react-redux'
 import {BrowserRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom'
-import Music from './Components/Music/Music'
+import {Music} from './Components/Music/Music'
 import Settings from './Components/Settings/Settings'
 import News from './Components/News/News'
 import {MainHeader} from './Components/Header/MainHeader'
@@ -13,7 +13,7 @@ import {initializeApp} from './Redux/app-reducer'
 import Preloader from './Components/common/Preloader/Preloader'
 import {LoginPage} from './Components/Login/LoginPage'
 import store from './Redux/redux-store'
-import ProfileContainer from './Components/Profile/ProfileContainer'
+import ProfilePage from './Components/Profile/ProfilePage'
 import Error404 from './Components/common/Errors/404'
 import {SiderMenu} from './Components/SiderMenu/SiderMenu'
 import {getInitialized} from './Redux/app-selectors'
@@ -70,11 +70,11 @@ const App: React.FC = () => {
                                 <Suspense fallback={<div>Loading...</div>}>
                                     <Switch>
                                         <Route exact path='/' children={() => <Redirect to="/profile"/>}/>
-                                        <Route path='/profile/:userId?' component={ProfileContainer as React.FC}/>
+                                        <Route path='/profile/:userId?' component={ProfilePage as React.FC}/>
                                         <Route path='/dialogs' component={DialogsContainer}/>
                                         <Route path='/news' component={News}/>
                                         <Route path='/music' component={Music}/>
-                                        <Route path='/settings' component={Settings}/>
+                                        <Route path='/settings' component={Settings as React.FC}/>
                                         <Route path='/users' component={UsersPage}/>
                                         <Route path='/login' component={LoginPage}/>
                                         <Route path='/chat' component={ChatPage}/>

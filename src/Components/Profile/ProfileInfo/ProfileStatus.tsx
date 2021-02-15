@@ -1,4 +1,5 @@
 import React, {useState, useEffect, ChangeEvent} from 'react'
+import styles from './../Profile.module.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {getStatusSelector} from '../../../Redux/profile-selectors'
 import {updateStatus} from '../../../Redux/profile-reducer'
@@ -28,10 +29,10 @@ export const ProfileStatus: React.FC = React.memo(() => {
     }
 
     return (
-        <div>
+        <div className={styles.status}>
             {
                 !editMode
-                    ? <span onDoubleClick={activateEditMode}>{status}</span>
+                    ? <span onDoubleClick={activateEditMode}>"{status}"</span>
                     : <input onBlur={deactivateEditMode}
                              onChange={onStatusChange}
                              autoFocus={true}

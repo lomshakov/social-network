@@ -3,7 +3,7 @@ import React from 'react'
 const News: React.FC<any> = (props) => {
     return (
         <div>
-            News
+            <h2>News</h2>
         </div>
     )
 }

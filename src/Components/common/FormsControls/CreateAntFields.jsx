@@ -1,8 +1,8 @@
-import React from "react"
-import { DatePicker, Form, Input, TimePicker, Select } from "antd"
+import React from 'react'
+import {DatePicker, Form, Input, TimePicker, Select} from 'antd'
 
 const FormItem = Form.Item
-const { Option } = Select
+const {Option} = Select
 
 const CreateAntField = AntComponent => ({
                                             field,

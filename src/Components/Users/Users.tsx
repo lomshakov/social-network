@@ -85,6 +85,8 @@ export const Users: React.FC<PropsType> = (props) => {
     return (
         <div className={style.usersPage}>
 
+            <h2>Search your friends</h2>
+
             <div>
                 <UserSearchForm onSearchFilterChanged={onSearchFilterChanged}/>
             </div>

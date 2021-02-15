@@ -1,5 +1,4 @@
 import './ProfileDataEdit.css'
-import 'antd/dist/antd.css'
 import React from 'react'
 import {Button, Form, Input, Select} from 'antd'
 import {ProfileType} from '../../../types/types'
