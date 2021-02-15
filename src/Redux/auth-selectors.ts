@@ -12,3 +12,11 @@ export const getAuthError = (state: AppStateType) => {
 export const getCaptchaUrl = (state: AppStateType) => {
     return state.auth.captchaUrl
 }
+
+export const getLoginSelector = (state: AppStateType) => {
+    return state.auth.login
+}
+
+export const getUserIdSelector = (state: AppStateType) => {
+    return state.auth.userId
+}

@@ -1,17 +1,16 @@
 import React, {useEffect} from 'react'
 import {compose} from 'redux'
-import {connect} from 'react-redux'
-import {RouteComponentProps, withRouter} from 'react-router-dom'
-import Profile from './Profile'
-import {actions, getProfileData, getUserStatus, savePhoto, saveProfile, updateStatus} from '../../Redux/profile-reducer'
+import {useDispatch, useSelector} from 'react-redux'
+import {withRouter} from 'react-router-dom'
+import {Profile} from './Profile'
+import {getProfileData, getUserStatus} from '../../Redux/profile-reducer'
 import {withAuthRedirect} from '../../hoc/withAuthRedirect'
-import {AppStateType} from '../../Redux/redux-store'
-import {ProfileType} from '../../types/types'
+import {getUserIdSelector} from '../../Redux/auth-selectors'
 
-const ProfileContainer: React.FC<MapStateToPropsType & MapDispatchToPropsType & RouteComponentProps<PathParamsType>> = ({
-                                        profile, authorizedUserId, getProfileData,
-                                        getUserStatus, status, updateStatus, isAuth,
-                                        savePhoto, saveProfile, error, login, posts, addPost, ...props }) => {
+const ProfileContainer: React.FC<any> = ({...props }) => {
+
+    const authorizedUserId = useSelector(getUserIdSelector)
+    const dispatch = useDispatch()
 
     useEffect(() => {
 
@@ -25,56 +24,12 @@ const ProfileContainer: React.FC<MapStateToPropsType & MapDispatchToPropsType & 
         if (!userId) {
             console.error('ID should be exist in URI params or in a state')
         } else {
-            getProfileData(userId)
-            getUserStatus(userId)
+            dispatch(getProfileData(userId))
+            dispatch(getUserStatus(userId))
         }
     })
 
-    return <Profile {...props}
-                    isOwner={!props.match.params.userId}
-                    addPost={addPost}
-                    profile={profile as ProfileType}
-                    status={status}
-                    updateStatus={updateStatus}
-                    savePhoto={savePhoto}
-                    saveProfile={saveProfile}
-                    error={error}
-                    login={login}
-                    posts={posts}/>
+    return <Profile isOwner={!props.match.params.userId} />
 }
 
-type MapStateToPropsType = ReturnType<typeof mapStateToProps>
-
-type MapDispatchToPropsType = {
-    getProfileData: (userID: number | null) => void
-    getUserStatus: (userID: number) => void
-    updateStatus: (status: string) => void
-    savePhoto: (file: any) => void
-    saveProfile: (profile: ProfileType) => void
-    addPost: (post: string) => void
-}
-
-let mapStateToProps = (state: AppStateType) => ({
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
-    authorizedUserId: state.auth.userId,
-    isAuth: state.auth.isAuth,
-    error: state.profilePage.profileChangeError,
-    login: state.auth.login,
-    posts: state.profilePage.posts
-})
-
-type PathParamsType = {
-    userId: string
-}
-
-// Your component own properties
-type PropsType = RouteComponentProps<PathParamsType> & {
-    someString: string,
-}
-
-export default compose(
-    connect(mapStateToProps, {getProfileData, getUserStatus, updateStatus, savePhoto, saveProfile, addPost: actions.addPost}),
-    withRouter,
-    withAuthRedirect
-)(ProfileContainer)
+export default compose(withRouter, withAuthRedirect)(ProfileContainer)

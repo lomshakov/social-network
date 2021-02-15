@@ -10,7 +10,6 @@ type GetUsersResponseType = {
 
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10, term = '', friend: null | boolean = null) {
-        debugger
         return instance.get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}&term=${term}` + ((friend !== null) ? `&friend=${friend}` : ''))
             .then(response => response.data)
     },

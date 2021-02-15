@@ -1,14 +1,14 @@
 import React, {useState, useEffect, ChangeEvent} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {getStatusSelector} from '../../../Redux/profile-selectors'
+import {updateStatus} from '../../../Redux/profile-reducer'
 
-type PropsType = {
-    status: string
-    updateStatus: (status: string) => void
-}
+export const ProfileStatus: React.FC = React.memo(() => {
 
-const ProfileStatus: React.FC<PropsType> = ({ status, updateStatus }) => {
-
+    const status = useSelector(getStatusSelector)
     let [editMode, setEditMode] = useState(false)
     let [currentStatus, setStatus] = useState(status)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setStatus(status)
@@ -20,7 +20,7 @@ const ProfileStatus: React.FC<PropsType> = ({ status, updateStatus }) => {
 
     const deactivateEditMode = () => {
         setEditMode(false)
-        updateStatus(currentStatus)
+        dispatch(updateStatus(currentStatus))
     }
 
     const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +39,4 @@ const ProfileStatus: React.FC<PropsType> = ({ status, updateStatus }) => {
             }
         </div>
     )
-}
-
-export default ProfileStatus
+})

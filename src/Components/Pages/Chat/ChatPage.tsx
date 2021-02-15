@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react'
 import {Messages} from './Messages'
 import {AddMessageForm} from './AddMessageForm'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {startChat, stopChat} from '../../../Redux/chat-reducer'
+import {AppStateType} from '../../../Redux/redux-store'
 
 const ChatPage = () => {
     return (
@@ -13,6 +14,8 @@ const ChatPage = () => {
 }
 
 const Chat = () => {
+
+    const status = useSelector((state: AppStateType) => state.chat.status)
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -25,6 +28,7 @@ const Chat = () => {
 
     return (
         <div>
+            {status === 'error' && <div>Error with opening WebSocket connection. Please, refresh page</div>}
             <Messages/>
             <AddMessageForm/>
         </div>

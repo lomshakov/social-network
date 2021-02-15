@@ -4,8 +4,9 @@ import {Button} from 'antd'
 import {Field, Form, Formik} from 'formik'
 import {AntInput} from '../../common/FormsControls/CreateAntFields'
 import {SendOutlined} from '@ant-design/icons'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {sendMessage} from '../../../Redux/chat-reducer'
+import {AppStateType} from "../../../Redux/redux-store";
 
 type ValuesType = {
     message: string
@@ -13,7 +14,7 @@ type ValuesType = {
 
 export const AddMessageForm: React.FC = () => {
 
-    // const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
+    const status = useSelector((state: AppStateType) => state.chat.status)
     const dispatch = useDispatch()
     const onSubmit = (values: ValuesType, {resetForm}: any) => {
         dispatch(sendMessage(values.message))
@@ -36,7 +37,7 @@ export const AddMessageForm: React.FC = () => {
                     <Button htmlType="submit"
                             type="primary"
                             icon={<SendOutlined/>}
-                        /*disabled={wsChannel === null || readyStatus !== 'ready'}*/
+                            disabled={status !== 'ready'}
                     >
                         Send
                     </Button>

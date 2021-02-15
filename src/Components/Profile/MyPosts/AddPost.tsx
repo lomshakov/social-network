@@ -4,15 +4,15 @@ import style from './AddPost.module.css'
 import {TextArea} from '../../common/FormsControls/FormsControls'
 import {composeValidators, maxLength, minLength, required} from '../../../utils/validators/validators'
 import {Button} from 'antd'
+import {useDispatch} from 'react-redux'
+import {actions} from '../../../Redux/profile-reducer'
 
-type PropsType = {
-    addPost: (post: string) => void
-}
+export const AddPost: React.FC = () => {
 
-const AddPost: React.FC<PropsType> = ({ addPost }) => {
+    const dispatch = useDispatch()
 
     let onFinish = (formData: any) => {
-        addPost(formData.message)
+        dispatch(actions.addPost(formData.message))
     }
 
     return (
@@ -35,5 +35,3 @@ const AddPost: React.FC<PropsType> = ({ addPost }) => {
         />
     )
 }
-
-export default AddPost

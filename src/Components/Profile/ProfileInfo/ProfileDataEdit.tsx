@@ -12,7 +12,7 @@ type PropsType = {
     deactivateEditMode: () => void
 }
 
-const ProfileDataEdit: React.FC<PropsType> = ({ handleSubmit, profile, deactivateEditMode }) => {
+export const ProfileDataEdit: React.FC<PropsType> = ({ handleSubmit, profile, deactivateEditMode }) => {
 
     const layout = {
         labelCol: { span: 8 },
@@ -68,5 +68,3 @@ const ProfileDataEdit: React.FC<PropsType> = ({ handleSubmit, profile, deactivat
         </Form>
     )
 }
-
-export default ProfileDataEdit
